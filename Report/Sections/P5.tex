@@ -1,0 +1,64 @@
+\section{Problem 5}
+
+\subsection{Considerations}
+
+\begin{itemize}
+        
+    \item $T1 = 42~C^\circ   =  315.15 ~K$
+    \item $T2 = 42.5~C^\circ =  315.65 ~K$
+
+\end{itemize}
+\subsection{NTC}
+
+Using the beta model:
+
+\begin{equation}
+    R = R_0 e^{\beta\left ( \frac{1}{T} - \frac{1}{T_0 } \right )}
+\end{equation}
+
+
+From the datasheet :
+\begin{itemize}
+    \item $\beta = 3988$
+    \item $R(25^{\circ}) = 5k\Omega$ 
+\end{itemize}
+
+Therefore: 
+\begin{equation}
+    R = 5K\cdot e^{ 3988\cdot \left ( \frac{1}{T} - \frac{1}{298.15 } \right )}
+\end{equation}
+
+Hence: 
+R(T1) = 
+R(T2) = 
+
+%\subsection{Comparator With Hysteresis}
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/SingleSupplySchimidtTrigger.png}
+    \caption{Comparator with hysteresis circuit \textsubscript{\cite{NTC_datasheet}}}
+    \label{fig:ComparatorCirc}
+\end{figure}
+
+For circuit dimensioning the following equations were used\textsuperscript{\cite{TI-Comparator-Hysteresis}}.
+
+\begin{equation}
+    \begin{cases}
+        \frac{R_f}{R_1} = \frac{V_L}{V_H - V_L}\\
+        \frac{R_2}{R_1} = \frac{V_L}{V_{CC}-V_{H}}
+    \end{cases}
+\end{equation}
+
+But since this circuit is inverting.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/NTCCirc.png}
+    \caption{NTC with non-inverting comparator}
+    \label{fig:NTCCirc}
+\end{figure}
+
+In this circuit $V_{in} = V_{CC}\cdot\frac{R_3}{R_3+R_1}$, $R_1 = R_{NTC}$.

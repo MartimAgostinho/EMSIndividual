@@ -1,0 +1,58 @@
+\section{Problem 1}
+
+\subsection{Voltage Gain}
+
+Considering an ideal OPAMP  working on the linear region, the following assumptions were made.
+
+\begin{itemize}
+    \item $Z_{in} = +\infty$
+    \item $Z_{out} = 0$
+    \item $A_d = +\infty$
+    \item $V_+ = V_-$
+\end{itemize}
+
+In order to obtain the value of $V_{out}(V_{in})$, it is necessary to get the circuit equations.
+
+\begin{equation}
+    \begin{cases}
+    
+        i_{t}   = \frac{V_-}{R_1}\\
+        V_x     = V_- + R_2 \cdot i_t\\ 
+        V_{out} = V_x + R_3\cdot i_3\\
+        i_3     = i_t + i_4 = i_t + \frac{V_x}{R_4} 
+
+    
+    \end{cases}
+\end{equation}
+
+Where $i_t$ is the current passing through $R_1$ and $R_2$, $V_x$ is voltage between $R_3$ terminals.
+This results in the following equation.
+
+\begin{equation}
+    V_{out} = \frac{ R_{1} R_{4} + R_{2} R_{4} + R_{3} \left(R_{1} + R_{2} + R_{4}\right)}{R_{1} R_{4}}\cdot V_{i}
+\end{equation}
+
+\subsection{ Input Current Bias }
+
+In order to calculate the impact of the current bias, a current supply is placed in parallel on the input terminals of the OPAMP. As shown in the figure 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/Ex1Bias.png}
+    \caption{Circuit with input bias current}
+    \label{Ex1Bias}
+\end{figure}
+
+Using superposition, to evaluate the current effect on the output, the following system of equations is obtained.
+
+
+\begin{equation}
+    \begin{cases}
+    
+        V_- = V_+ = 0 \\
+        I_{R_1} = 0\\
+        \frac{V_x}{R_4} + \frac{V_x - V_{out}}/R_3 + I_{bias-}\\
+        V_{out} = I_{bias-} - \frac{V_x - V_{out}}{R_3}
+
+    \end{cases}
+\end{equation}
