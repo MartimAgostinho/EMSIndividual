@@ -32,12 +32,11 @@ void loop(){
     esp_err_t e = i2s_read(I2S_NUM_0, &buffer, sizeof(buffer), &bytes_read, portMAX_DELAY);
     int16_t sample_read = bytes_read/2;
    
-    vector<double> outiir = iir.ProcessSignal(buffer,sample_read);
-    double aux;
     if( e == ESP_OK ){
         for (int s = 0; s < sample_read; ++s){
-            
-            Serial.print(outiir[s]);
+            FirBuf.insert(uint12_to_Volt(buffer[s]));
+            FirBuf.next();
+            Serial.println(conv(s,FirBuf,fir.coef));
         }
     }
 }

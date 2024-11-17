@@ -1,7 +1,0 @@
-\babel@toc {english}{}\relax 
-\contentsline {section}{\numberline {1}Problem 1}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Voltage Gain}{3}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2} Input Current Bias }{3}{subsection.1.2}%
-\contentsline {section}{\numberline {2}Problem 5}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Considerations}{4}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}NTC}{4}{subsection.2.2}%
