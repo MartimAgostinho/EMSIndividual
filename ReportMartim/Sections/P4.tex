@@ -1,0 +1,94 @@
+\section{Problem 4}
+
+Considering the transfer function in equation \ref{eq:tfP4}.
+\begin{equation}
+    \label{eq:tfP4}
+    H(z)=0.8\frac{1 - 6z^{-1} + z^{-2}}{1 - 0.36953z^{-1} + 0.19582z^{-2}}
+\end{equation}
+
+Therefor the numerator is $num = [1, -6, 1]$ and $den = [1, -0.36953, 0.19582z]$.
+
+Defining this in code:
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+import scipy.signal as sig
+import numpy as np
+import math
+import matplotlib.pyplot as plt 
+from sympy import *
+
+k       = 1000
+Blue    = (       0, 101/255, 189/255 )
+Green   = (  52/255, 129/255,  65/255 )
+Orange  = ( 241/255,  89/255,  41/255 )
+
+Fs = 80*k * 2*np.pi
+
+numz    = [ 0.8,6*0.8,0.8 ]
+denz    = [1, -0.36953, 0.19582]
+wz, hz  = sig.freqz(numz, denz,fs=Fs)
+\end{lstlisting}
+
+With the filter defined, the following code shows the DC gain, zeros and poles.
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+z,p,_   = sig.tf2zpk(numz,denz)
+print("Zeros:" ,end="")
+print(z)
+print("Poles:" ,end="")
+print(p)
+print("Gain DC: ",end='')
+print( 20*np.log10( abs(hz[0]) ) )
+\end{lstlisting}
+
+Giving the following results:
+\begin{itemize}
+    \item Zeros : $:[-5.8284, -0.1716]$
+    \item Poles : $[0.1848+0.4021j 0.1848-0.4021j]$
+    \item DC Gain: $17.7809dB$
+\end{itemize}
+
+In order to get the cutoff frequency:
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+magnitude_db = 20 * np.log10(abs(hz))
+
+cutoff_idx       = np.where(magnitude_db <= 20*np.log10( abs(hz[0]) )-3.01)[0][0]
+cutoff_frequency = wz[cutoff_idx] / (2 * np.pi) 
+print( cutoff_frequency )
+\end{lstlisting}
+
+Giving the cutoff frequency $F_c = 19921.875~Hz$. And finally to get the frequency response.
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+
+
+# Magnitude response
+plt.subplot(2, 1, 1)
+plt.semilogx(wz/(2*np.pi), 20*np.log10(abs(hz)),color=Blue)
+plt.axvline(x=cutoff_frequency, color=Green, linestyle='--', linewidth=1)
+plt.title('Bode Magnitude Plot ')
+plt.ylabel('Magnitude (dB)')
+plt.grid(True)
+plt.legend()
+
+# Bode Phase response
+plt.subplot(2, 1, 2)
+plt.semilogx(wz/(2*np.pi), np.angle(hz,deg=True),color = Blue)
+plt.xlabel('Frequency (rad/s)')
+plt.ylabel('Phase (degrees)')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+\end{lstlisting}
+
+Yielding the bode in figure \ref{fig:IIRBode}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/IIRBode.png}
+    \caption{$H(z)$ Frequency Response.}
+    \label{fig:IIRBode}
+\end{figure}
+

@@ -16,13 +16,13 @@ Ts          = 1/Fs
 wc          = CuttoffFreq*2*np.pi
 ws          = Fs*2*np.pi 
 
-order       = 400    #TODO: Get order
+order       = 400
 
 order = math.ceil(order)
 if order % 2 == 0:
     order += 1
 
-window = 'blackman' #TODO descobrir a window
+window = 'hamming' 
 
 filter = sig.firwin(
             order,
@@ -42,6 +42,7 @@ pha = np.angle( h,deg=True )
 
 cutoff_idx       = np.where(mag <= 20*np.log10( abs(h[0]) )-3.01)[0][0]
 cutoff_frequency = w[cutoff_idx]
+print("Cutoff Frequency:",end='')
 print( cutoff_frequency )
 
 # Magnitude response
@@ -62,7 +63,26 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+print("Coef Number: ",end='')
+print(len(filter))
 print("\nFIR Coefs: ")
+
+
+def PlotWindow(FilterWindow):
+
+    TimeArray = [n*Ts for n in range(len(FilterWindow))]
+    plt.plot(TimeArray, FilterWindow, 'o', markersize=2, color=Blue)
+    plt.vlines(TimeArray, ymin=0, ymax=FilterWindow,
+               color=Blue, linestyle='-', linewidth=0.5)
+    plt.title("FIR Window")
+    # plt.ylabel( "DUNNO" )
+    plt.xlabel("Time(s)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+PlotWindow( filter )
+
 out = ''
 for c in filter:
     out += str(c) + ", "
