@@ -1,0 +1,116 @@
+\section{Problem 6}
+
+\subsection{Pressure sensor - Principle of operation}
+
+A common way of designing a pressure sensor is by using a Wheatstone bridge. The bridge is made up of four resistors sensible to mechanical stress. 
+
+One implementation of this sensor is shown in Figure \ref{fig:wheatstone_bridge}. When pressure is applied each resistor either compress or stretch. These sensors are design in order to the opposite resistors in the bridge change their resistance accordingly, i.e., in the example of Figure \ref{fig:wheatstone_bridge}, $R - \triangle R$ decrease by compression, $R + \triangle R$ increase by stretching\textsuperscript{\cite{TI-Design-Resistive-Bridge-Pressure-Sensor}}. This change in resistance yields a change in the differential voltage, $V0$, which is proportional to the applied pressure.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics*[scale = 0.4]{images/wheatstone-bridge.png}
+    \caption{Pressure sensor Wheatstone bridge implementation.} 
+    \label{fig:wheatstone_bridge}
+\end{figure}
+
+When the bridge is connected to a voltage source and the output voltage is measured across the bridge it is given by the Equation \ref{eq:output_voltage}:
+
+\begin{equation}
+    V_0 = V_{in}\cdot \frac{\triangle R}{R}
+    \label{eq:output_voltage}
+\end{equation}
+
+Where $V_{in}$ is the input voltage, $\triangle R$ is the change in resistance and $R$ is the initial resistance of the resistors. Since $\triangle R$ is proportional to the force or pressure, Equation \ref{eq:output_voltage}
+can be rewritten as:
+
+\begin{equation}
+    V_0 = V_{in}\cdot F \cdot S
+    \label{eq:output_voltage_force}
+\end{equation}
+
+Where $F$ is the force or pressure and $S$ is the sensitivity of the sensor in mV per volt of excitation with full scale input, specified by the sensor manufacture\textsuperscript{\cite{TI-Design-Signal-Conditioning-Wheatstone-Resistive-Bridge-Sensors}}.
+
+\subsection{Drip Irrigation System with Pressure Regulation}
+
+This system automates the delivery of water to plants through a smart drip irrigation system with controlled pressure. It ensures optimal water flow and avoids overwatering or under-watering by maintaining a target pressure range of $10-30 psi$, typical for drip irrigation systems. The system uses a pressure sensor, microcontroller, and proportional solenoid valve to regulate the flow based on real-time pressure readings. Additionally, the system features a soil moisture sensor enhancing system's efficiency. In Figure \ref{fig:block-diagram} is shown a block diagram of the system.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{images/block-diagram.png}
+    \caption{Block diagram of the drip irrigation system.} 
+    \label{fig:block-diagram}
+\end{figure}
+
+\subsection{System design}
+\subsubsection{Selected Pressure Sensor and Components}
+
+\begin{itemize}
+    \item Pressure Sensor: Honeywell PC26 Series BD (0-30 psi variant), with I²C interface for pressure readings. 
+    \item ESP32 Microcontroller: Monitors pressure and controls the solenoid valve while integrating with additional smart features like soil moisture sensing.
+    \item Proportional Solenoid Valve: Adjusts the water flow based on the ESP32's PWM signal to regulate pressure.
+    \item Soil Moisture Sensor: Optional add-on for monitoring soil conditions to further optimize irrigation.
+    \item Water Pump: Ensures consistent pressure in the system.
+    \item 12V DC Power Supply: Powers the pump, valve, ESP32 and sensors.
+\end{itemize}
+
+In Table \ref{tab:components} is shown the components and connections of the system.
+
+
+
+\begin{table}[h]
+    \centering
+    \caption{Components and Connections}
+    \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+        \toprule
+        \textbf{Component} & \textbf{Connection} & \textbf{Power}\\
+        \midrule
+        Honeywell PC26 Series BD (30 psi)\textsuperscript{\cite{26PC-Datasheet}} & ESP - I2C Pin & 12 VDC \\
+        \midrule
+        ASCO Series 226 Solenoid Valve\textsuperscript{\cite{ASCO-226-Datasheet}} & ESP - PWM Pin & 12 VDC \\
+        \midrule
+        ESP32 \textsuperscript{\cite{ESP32-datasheet}} &  N/A & Voltage regulator 12-5 VDC \\
+        \midrule
+        Soil Moisture Sensor\textsuperscript{\cite{WET150-Datasheet}} &  ESP - I2C Pin & ESP 5VDC \\
+        \midrule
+        Water Pump & N/A & 12 VDC\\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:components}
+\end{table}
+
+\pagebreak
+
+\subsubsection{System Working Principles}
+
+Pressure Feedback Loop:
+
+$\rightarrow$ Read pressure sensor data via I2C.
+
+$\rightarrow$ Compare the pressure reading to the desired range.
+
+$\rightarrow$ If below range, open the valve by increasing the PWM duty cycle.
+
+$\rightarrow$ If above range, restrict the valve by reducing the PWM signal.
+\\
+
+Soil-Based Decision:
+
+$\rightarrow$ Read soil moisture levels.
+
+$\rightarrow$ If the soil moisture is below a threshold, activate the irrigation cycle.
+
+$\rightarrow$ Otherwise, keep the system idle.
+
+
+\subsubsection{Project Implementation}
+\begin{enumerate}
+    \item Hardware: Connection of the components according to Table \ref{tab:components}. 
+    \item Signal Conditioning: Adjustment of the output values of the sensors to the ESP32 input range with an Analog Front-End if needed.
+    \item  Software: Initialization of the system, pressure feedback loop, and soil-based decision-making.
+    \item Testing and Calibration: Calibration of the pressure sensor and solenoid valve, testing soil moisture thresholds, and the irrigation flow.
+\end{enumerate}
+
+\textcolor{red}{FALTA DEFINIR OS RANGES DE ATUAÇÃO DO SISTEMA 10-30 MT VAGO}
+
+
+
