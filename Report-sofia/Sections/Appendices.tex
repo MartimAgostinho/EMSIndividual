@@ -1,0 +1,341 @@
+\pagebreak
+\section{Appendices}
+
+Some code was removed to facilitate the reading of the report. The complete code can be found in the attached files in the zip folder submitted.
+
+\subsection{FIR script}
+
+\begin{lstlisting}[language=python, caption=FIR.py]
+
+# -3dB cutoff at 250Hz
+# $40 dB attenuation at 300Hz
+# linear phase
+# sampling rate = 10kHz
+
+# Function to plot the frequency response of a filter
+k = 1000
+Blue = (0, 101/255, 189/255)
+Green = (52/255, 129/255,  65/255)
+Orange = (241/255,  89/255,  41/255)
+
+
+#Description
+def myfreqz(filters, w1, w2):
+    ...
+
+#Generates C++ Header file for the MCU
+def GenHeader(coefs, path=''):
+    ...
+
+#Plots Filter window in the time domain
+def PlotWindow(FilterWindow):
+    ...
+
+
+# Filter parameters                   # Filter order
+cutoff_freq = 270 * 2 * np.pi      # Cutoff frequency (in rad/s)
+sampling_rate = 10*k
+stopband_frequency = 800 * 2 * np.pi
+Amin = -40  # Minimum attenuation in dB the filter windows with this requirement are hamming, hann and blackman
+
+# Pre-warp the cutoff frequency
+wc = cutoff_freq
+ws = stopband_frequency
+Fs = sampling_rate
+Ts = 1/Fs
+# normalized frequencies
+w1 = wc/(Fs*2*np.pi)  # is the normalized cutoff frequency
+w2 = ws/(Fs*2*np.pi)  # is the normalized stopband frequency
+
+# Filter order
+M = (8 * np.pi) / (w2 - w1)
+
+# M is equal to the first odd integer greater than 8*pi/(w2-w1) odd symmetry -> M is odd -> linear phase
+M = math.ceil(M)
+if M % 2 == 0:
+    M += 1
+
+# Design filters with different windows
+windows = ['hann', 'hamming', 'blackman']
+filters = {window: sg.firwin(
+    M, cutoff=w1, window=window, pass_zero=True, scale=True) for window in windows}
+print("M  = "+str(M))
+# Plot frequency responses for each filter
+myfreqz(filters, w1, w2)
+
+print('w1 =', w1)
+print('w2 =', w2)
+
+# print filters
+"""
+for window in windows:
+    coefficients = ", ".join(map(str, filters[window]))
+    print(f"{window}\n{coefficients}")
+"""
+PlotWindow(filters["hamming"])
+FreqResponse(filters["hamming"])
+
+# GenHeader(filters["hamming"], path="src/FIR.h")
+
+\end{lstlisting}
+
+
+\subsection{IIR script}
+
+
+\begin{lstlisting}[language=python, caption=IIR.py]
+k = 1000
+
+
+def prewrap(wp, Ts):
+    return (2/Ts)*np.tan(wp*Ts/2)
+
+#Generates C++ Header file for the MCU
+def GenCppHeader(num, den, path=''):
+    ...
+
+fp = 300  # is the cutoff frequency
+Wn = 2*np.pi*fp  # is the angular frequency
+fs = 10*k  # is the sampling frequency
+N = 7  # is the order of the filter
+omega = prewrap(Wn, 1/fs)  # is the digital frequency
+num, den = sg.bessel(N, omega, 'low', analog=True,norm='mag')  # is the transfer function
+w, h = sg.freqs(num, den)  # is the frequency response
+ampl = 20*np.log10(abs(h))  # is the amplitude in dB
+f = w/(2*np.pi)  # is the frequency in Hz
+
+numz, denz = sg.bilinear(num, den, fs)  # is the digital filter
+# is the frequency response of the digital filter
+
+wz, hz = sg.freqz(numz, denz)
+
+# mapping of s-plane poles and zeros to z-plane poles and zeros
+# s-plane poles and zeros
+print('s-plane poles and zeros')
+print('num:', num)
+print('den:', den)
+print('roots of num:', np.roots(num))
+print('roots of den:', np.roots(den))
+
+# z-plane poles and zeros
+print('z-plane poles and zeros')
+print('numz:', numz)
+print('denz:', denz)
+print('roots of numz:', np.roots(numz))
+print('roots of denz:', np.roots(denz))
+
+# -1 is the base 10 logarithm of 0.1 and 4 is the base 10 logarithm of 10000
+frequencies = np.logspace(-1, 4, 1000)
+wc, hc = sg.freqs(num, den, worN=frequencies)
+wz, hz = sg.freqz(numz, denz, worN=frequencies)
+
+#GenCppHeader(numz,denz,path="src/IIR.h")
+
+\end{lstlisting}
+
+
+\subsection{C++ code}
+
+\begin{lstlisting}[language=C++, caption=Main.cpp]
+
+FIRFilter fir(coefs);
+IIRFilter iir(num, den);
+CircBuffer<double> FirBuf(fir.WinSize);
+
+void setup(){
+
+    Serial.begin(115200);
+    i2sInit();
+
+}
+
+void loop(){
+    
+    //Read ADC buffer
+    esp_err_t e = i2s_read(I2S_NUM_0, &buffer, sizeof(buffer), &bytes_read, portMAX_DELAY);
+    int16_t sample_read = bytes_read/2;
+   
+    //Process Values with IIR Filter
+    vector<double> outiir = iir.ProcessSignal(buffer,sample_read);
+    double aux;
+
+    if( e == ESP_OK ){
+        for (int s = 0; s < sample_read; ++s){
+            
+            aux = FirBuf.insert(uint12_to_Volt(buffer[s]));
+            Serial.print(aux);
+            Serial.print(",");
+            Serial.print(outiir[s]);
+
+            Serial.print(",");
+            FirBuf.next();
+            Serial.println(conv(s,FirBuf,fir.coef));
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C++, caption=Filter.h]
+
+template <typename T>
+class CircBuffer{
+    ...    
+//Implements a simple circular buffer
+
+};
+
+class FIRFilter{
+    public:
+        std::vector<double> coef;
+        unsigned int WinSize;
+
+
+    FIRFilter(const std::vector<double> &Coefs) : coef(Coefs), WinSize(Coefs.size()) {}
+
+};
+
+class IIRFilter{
+
+    private:
+        std::vector<double> num;
+        std::vector<double> den;
+        unsigned int nz; // Number of coef in the numerator
+        unsigned int order;
+        CircBuffer<double> outBuff;
+        CircBuffer<double> sigBuff;
+
+    public:
+        unsigned int ord = 0;
+    // const unsigned float SampleTime;
+
+    IIRFilter(const std::vector<double> &numerator, const std::vector<double> &denominator)
+        : num(numerator),
+        den(denominator),
+        nz(numerator.size()),
+        order(denominator.size()),
+        outBuff( order ),
+        sigBuff( order ){
+        ord = order;
+    };
+
+    // The output is Time shifted Ts*order
+    // And the output vector has a size = sig.size() - order
+    vector<double> ProcessSignal(uint16_t sig[],unsigned int SigSize)
+    {
+
+        vector<double> output(order, 0);
+        float aux;
+        unsigned int CoefPower;
+
+        for (unsigned int SigIndex = order; SigIndex < SigSize; ++SigIndex){
+            aux = 0;
+            for (unsigned int index = 0; index < nz; ++index){
+                CoefPower = nz - index;
+                aux += num[index] * uint12_to_Volt(sig[SigIndex - order + CoefPower]);
+            }
+            for (unsigned int index = 1; index < order; ++index){
+                // CoefPower = order - index;
+                aux -= den[index] * output[SigIndex - index];
+            }
+            output.push_back(aux / den[0]);
+        }
+        output.erase(output.begin(), output.begin() + order);
+        return output;
+    };
+};
+
+double conv( unsigned int pos, CircBuffer<double> sig,vector<double> coef/*, unsigned int SigSize*/ ){
+    
+    double aux = 0;
+    for (unsigned int n = 0; n < coef.size(); ++n){
+        //if (pos >= n && pos - n < SigSize){
+            aux += sig.get(- n) * coef[n];
+        //}
+    }
+    return aux;
+}
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[language=C++, caption=ADC.h]
+
+//Macro Definitions
+... 
+
+double uint12_to_Volt(uint16_t val);
+void i2sInit();
+
+
+void i2sInit(){
+
+    i2s_config_t i2s_config = {
+        .mode                   = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_ADC_BUILT_IN),
+        .sample_rate            = I2S_SAMPLE_RATE,               // The format of the signal using ADC_BUILT_IN
+        .bits_per_sample        = I2S_BITS_PER_SAMPLE_16BIT, // is fixed at 12bit, stereo, MSB
+        .channel_format         = I2S_CHANNEL_FMT_ONLY_LEFT,
+        .communication_format   = i2s_comm_format_t(I2S_COMM_FORMAT_STAND_I2S),//I2S_COMM_FORMAT_I2S_MSB,
+        .intr_alloc_flags       = ESP_INTR_FLAG_LEVEL1,
+        .dma_buf_count          = 8,
+        .dma_buf_len            = I2S_DMA_BUF_LEN,
+        .use_apll               = false,
+        .tx_desc_auto_clear     = false,
+        .fixed_mclk             = 0
+    };
+
+    // adc1_config_width(ADC_WIDTH_BIT_12);
+    adc1_config_channel_atten(ANALOG_ADC, ADC_ATTEN_DB_0);
+    i2s_driver_install(I2S_NUM_0, &i2s_config, 0, NULL);
+    i2s_set_adc_mode(ADC_UNIT_1, ANALOG_ADC);
+    i2s_adc_enable(I2S_NUM_0);
+}
+
+// val must be 12 bit number
+double uint12_to_Volt(uint16_t val){
+
+    val = val & 0x0FFF;//uint16 -> uint12
+    //Real Voltage in ADC mV
+    double adcV = ADC_MIN_VOLT + ((double)val) * ((ADC_MAX_VOLT - ADC_MIN_VOLT) / (double)ADC_MAX);
+    return 1e3/*To Micro Volt*/ * (adcV - OFFSET) / GAIN /*AFE Gain and Offset*/;
+}
+\end{lstlisting}
+
+\subsection{ECG signal generation script}
+
+
+\begin{lstlisting}[language=python, caption=EcfFourierCoefs.py]
+#Script for ECG Signal Fourier Series 
+
+Blue    = (       0, 101/255, 189/255 )
+Green   = (  52/255, 129/255,  65/255 )
+Orange  = ( 241/255,  89/255,  41/255 )
+
+T   = 5 #duration in seconds
+sig = nk.ecg_simulate( duration=T,noise=0.05,heart_rate=60)
+Ts  = 1/(10*1000)
+N   = len(sig)  # Number of samples
+Fs  = 1 / Ts  # Sampling frequency
+
+#-------------Plot Signal-------------#
+TimeArray = [ n*Ts for n in range( len(sig) ) ]
+
+fourier_coefficients = np.fft.fft(sig) / N  # Normalized by number of samples
+
+freqs = np.fft.fftfreq(N, Ts)
+
+positive_freqs  = freqs[:N//2]*2*np.pi
+phase           = np.angle( fourier_coefficients[:N//2],deg="rad" )
+positive_coeffs = abs(fourier_coefficients[:N//2])
+
+#-------------Gen Math Function-------------#
+
+out = ""
+for n in range( N//2 ):
+    p = ''
+    if phase[n] >= 0:
+        p = '+'
+    if positive_coeffs[n] > 0.0045:
+        out += f"{positive_coeffs[n]:.4f}*cos( {positive_freqs[n]}*t {p} {phase[n]:.4f} )+"
+
+print(out[:-1])
+\end{lstlisting}
