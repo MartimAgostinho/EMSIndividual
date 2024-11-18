@@ -1,0 +1,7 @@
+
+Report*/main.*
+!Report*/main.tex
+
+schematics/*.log
+schematics/*.net
+schematics/*.raw
