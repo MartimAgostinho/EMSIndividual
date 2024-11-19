@@ -42,8 +42,9 @@ vo2r = vr2r * (1 + r3/r4)
 vo3r = vr3r 
 vo4r = vr4r * (1 + r3/r4)
 vo5r = vir * vo1/vi
-vo6r = simplify(inr + (r1*vout*r1)/(r1 + vout*r1))
+vo6r = inr + simplify((r1*vout*r1)/(r1 + vout*r1))
 vo7r = vnamp
 
+print(latex(vo7r))
 pprint(vo5r)
 pprint(vo6r)

@@ -1,0 +1,157 @@
+\section{Problem 5}
+
+This problem goal is to design a system that will turn on and off an air fan, depending on the temperature.
+
+\subsection{Specifications}
+
+This are the specifications for this particular problem.
+
+The temperature intervals for turning on and off the system:
+\begin{itemize}
+        
+    \item $T_1 = 42~C^\circ   =  315.15 ~K$
+    \item $T_2 = 42.5~C^\circ =  315.65 ~K$
+
+\end{itemize}
+
+In order to sense the temperature, this system uses an NTC. To correlate its resistance with temperature the beta model was used. 
+
+\begin{equation}
+    R = R_0 e^{\beta\left ( \frac{1}{T} - \frac{1}{T_0 } \right )}
+\end{equation}
+
+From the datasheet \textsuperscript{\cite{NTC_datasheet}} :
+
+\begin{itemize}
+    \item $\beta = 3988$
+    \item $R(25^{\circ}) = 5k\Omega$ 
+\end{itemize}
+
+Therefore: 
+\begin{equation}
+    R = 5K\cdot e^{ 3988\cdot \left ( \frac{1}{T} - \frac{1}{298.15 } \right )}
+\end{equation}
+
+Hence: 
+\begin{equation}
+    \begin{aligned}   
+        R(T_1) = 2.43 K\Omega\\
+        R(T_2) = 2.38 K\Omega
+    \end{aligned}
+\end{equation}
+
+\subsection{Design}
+\subsubsection{Comparator With Hysteresis}
+
+For the comparator with hysteresis, as suggested, the circuit in figure \ref{fig:ComparatorCirc}, was considered, but cannot be used since it inverts the output.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/SingleSupplySchimidtTrigger.png}
+    \caption{Comparator with hysteresis circuit \textsuperscript{\cite{NTC_datasheet}}}
+    \label{fig:ComparatorCirc}
+\end{figure}
+
+In order to make this circuit not inverting, without switching the NTC with $R_{1}$. The circuit in figure \ref{fig:NTCCirc} was used.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/NTCCirc.png}
+    \caption{NTC with non-inverting comparator}
+    \label{fig:NTCCirc}
+\end{figure}
+
+In this circuit the NTC alongside with $R_1$ work as a voltage divider, creating the voltage $V_{in}$, and for the voltage $V_{ref}$, $R_2$ and $R_3$ also make a voltage divider. 
+For this circuit to work $R_5$ and $R_f$ need to be considerably bigger than $NTC$ and $R_2$, or a buffer could also be used.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/HysteresisWindow.png}
+    \caption{Hysteresis window \textcolor{red}{Citar o enunciado}}
+    \label{fig:HysterWindow}
+\end{figure}
+
+Considering the hysteresis window, figure \ref{fig:HysterWindow} and $R_1 = 5K$.
+
+\begin{equation}
+    \begin{aligned}
+        V_H &= 5\frac{R_1}{R_1 + NTC(T_2)} = 3.388\\
+        V_L &= 5\frac{R_1}{R_1 + NTC(T_1)} = 3.365
+    \end{aligned}
+\end{equation}
+
+
+When $V_{out} = HIGH$:
+
+\begin{equation}
+    V_+ = V_{CC}-\left (V_{CC}-V_L\right )\frac{R_5}{R_5 + R_f}
+\end{equation}
+
+When $V_{out} = LOW$:
+
+\begin{equation}
+    V_+ = V_H\frac{R_f}{R_f + R_5}
+\end{equation}
+Hence:
+\begin{equation}
+    V_{CC}-\left (V_{CC}-V_L\right )\frac{R_5}{R_5 + R_f} = V_H\frac{R_f}{R_f + R_5}
+    \label{eq:solR5}
+\end{equation}
+
+Since $R_f$ needs to be $>>5K$ and since the output is either high or low thermal noise should not be problem, $R_f$ was set as $1M\Omega$. 
+
+Therefore, solving equation \ref{eq:solR5}, $R_5 = 4.6k$ and $V_{ref} = 3.37V$.
+\subsection{Opamp Offset}
+
+The Opamp offset is represented as a voltage supply at the inverting input. Meaning the  $V_{-} = V_{ref} + V_{offset}$.
+
+For the Opamp used, the MCP6004, the input offset is $\pm 4.5mV$ \textsuperscript{\cite{MCP6001_datasheet}}. 
+
+\subsection{Relay Circuit}
+In order to turn the fan on and off, a relay needs to be powered by a transistor, since the Opamp does not output enough current, to turn the relay on and off. The circuit in figure \ref{fig:RelayCirc} was considered. The diode is added in order to protect the relay from voltage spikes cause by the sudden changes in current.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.2]{Images/RelayCirc.png}
+    \caption{Relay Circuit.}
+    \label{fig:RelayCirc}
+\end{figure}
+
+\begin{equation}
+    \begin{aligned}
+        I_C &= \beta \cdot I_B\\
+        I_B &= \frac{V_o - V_{BE}}{R}\\ 
+        \Rightarrow R &= \beta \frac{V_o - V_{BE}}{I_C}
+    \end{aligned}
+\end{equation}
+
+From the NPN transistor 2N2222 datasheet \textsuperscript{\cite{2N2222_datasheet}}, the following values were taken:
+\begin{itemize}
+    \item $V_{BE} = $
+    \item $\beta = $
+\end{itemize}
+And from the relay datasheet \textsuperscript{\cite{ST2-DC5V-F_datasheet}}, $I_C = I_{Relay} = $.
+
+Hence $R = $.
+
+\subsubsection{Comparator Simulation}
+
+In order to test the design the circuit in figure \ref{fig:TestCirc} was tested in LTSpice, the value of NTC varies from $2k\Omega$ to $4k\Omega$ and back to $2k\Omega$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.4]{Images/CompSimCirc.png}
+    \caption{Simulation test circuit.}
+    \label{fig:TestCirc}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/CompSimRes.png}
+    \caption{Simulation test results.}
+    \label{fig:TestRes}
+\end{figure}
+
+As shown in figure \ref{fig:TestRes}, the output starts at HIGH and therefore the $V_{in}$ value to change the output to LOW needs to be $\approx 3.365V$ and in the simulation the value is $3.37V$. As for the change from LOW back to HIGH the designed value was $\approx 3.388V$ and in the simulation it changed at $3.39V$, this confirmed the effectiveness of the comparator circuit.
+
+
