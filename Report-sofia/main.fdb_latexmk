@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1731899465.44342 "main.aux" "main.bbl" "main" 1731901976.2231 0
-  "./references.bib" 1731898451 2990 4255c5b10831902a3ec7282aecbecd3e ""
+["bibtex main"] 1732030431.87436 "main.aux" "main.bbl" "main" 1732030437.13572 0
+  "./references.bib" 1732030382 3155 e1b026ed1d2896051031b2cf0b3c511f ""
   "C:/Users/sofia/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1731901975 2952 afcf57ae73c20adfe2238f96aad5aaf1 "pdflatex"
+  "main.aux" 1732030435 2952 afcf57ae73c20adfe2238f96aad5aaf1 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1731901972.9098 "c:/Users/sofia/EMSIndividual/Report-sofia/main.tex" "main.pdf" "main" 1731901976.22386 0
+["pdflatex"] 1732030432.33277 "c:/Users/sofia/EMSIndividual/Report-sofia/main.tex" "main.pdf" "main" 1732030437.13641 0
   "C:/Users/sofia/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1729785431 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/sofia/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1706381242 14064 367b901a495c5f535b1eccdb3b08571a ""
   "C:/Users/sofia/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1728929061 11948198 9841348edbcf6c045cda498020e40ba7 ""
@@ -226,17 +226,17 @@
   "Sections/problem3.tex" 1731509071 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Sections/problem4.tex" 1731509097 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Sections/problem5.tex" 1731509106 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "Sections/problem6.tex" 1731901459 5810 45f65b28670798b7a97f7fe933d279c0 ""
+  "Sections/problem6.tex" 1732030429 5809 46c4b48cc419be3906071c71858bbb75 ""
   "c:/Users/sofia/EMSIndividual/Report-sofia/main.tex" 1731895689 6852 16b49f01007b057185e9affe3fc97062 ""
   "images/block-diagram.png" 1731891459 16003 7a081a69e633711025927fbc45602928 ""
   "images/wheatstone-bridge.png" 1731884271 13807 2115624361a5d2dcd03b5b63af117ba3 ""
-  "main.aux" 1731901975 2952 afcf57ae73c20adfe2238f96aad5aaf1 "pdflatex"
-  "main.bbl" 1731899465 2382 49bb37bdc66314b82c9c41cc914a05db "bibtex main"
-  "main.lof" 1731901975 279 102003a2a3183e9c8cdb5bd6013b69a6 "pdflatex"
-  "main.lot" 1731901975 132 e8ae4df694825e13d6a72afd457a4c1e "pdflatex"
-  "main.out" 1731901975 1538 0db4a737565a56973923b41cf608cd0c "pdflatex"
+  "main.aux" 1732030435 2952 afcf57ae73c20adfe2238f96aad5aaf1 "pdflatex"
+  "main.bbl" 1732030432 2547 0a18da40d2471bf673b9ccb5e4004839 "bibtex main"
+  "main.lof" 1732030435 279 102003a2a3183e9c8cdb5bd6013b69a6 "pdflatex"
+  "main.lot" 1732030435 132 e8ae4df694825e13d6a72afd457a4c1e "pdflatex"
+  "main.out" 1732030435 1538 0db4a737565a56973923b41cf608cd0c "pdflatex"
   "main.tex" 1731895689 6852 16b49f01007b057185e9affe3fc97062 ""
-  "main.toc" 1731901975 772 5252e518c9e37d69fdbeba746b12de36 "pdflatex"
+  "main.toc" 1732030435 772 5252e518c9e37d69fdbeba746b12de36 "pdflatex"
   (generated)
   "main.aux"
   "main.lof"
