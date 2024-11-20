@@ -35,8 +35,8 @@ Therefore:
 Hence: 
 \begin{equation}
     \begin{aligned}   
-        R(T_1) = 2.43 K\Omega\\
-        R(T_2) = 2.38 K\Omega
+        R(T_1) = \SI{2.43}{\kilo\ohm} \\
+        R(T_2) = \SI{2.38}{\kilo\ohm}
     \end{aligned}
 \end{equation}
 
@@ -75,8 +75,8 @@ Considering the hysteresis window, figure \ref{fig:HysterWindow} and $R_1 = 5K$.
 
 \begin{equation}
     \begin{aligned}
-        V_H &= 5\frac{R_1}{R_1 + NTC(T_2)} = 3.388\\
-        V_L &= 5\frac{R_1}{R_1 + NTC(T_1)} = 3.365
+        V_H &= 5\frac{R_1}{R_1 + NTC(T_2)} = 3.388 \si{\V}\\
+        V_L &= 5\frac{R_1}{R_1 + NTC(T_1)} = 3.365 \si{\V}
     \end{aligned}
 \end{equation}
 
@@ -98,14 +98,14 @@ Hence:
     \label{eq:solR5}
 \end{equation}
 
-Since $R_f$ needs to be $>>5K$ and since the output is either high or low thermal noise should not be problem, $R_f$ was set as $1M\Omega$. 
+Since $R_f$ needs to be $>>5K$ and since the output is either high or low thermal noise should not be problem, $R_f$ was set as $\SI{1}{\mega\Omega}$. 
 
-Therefore, solving equation \ref{eq:solR5}, $R_5 = 4.6k$ and $V_{ref} = 3.37V$.
+Therefore, solving equation \ref{eq:solR5}, $R_5 = \SI{4.6}{\kilo\ohm}$ and $V_{ref} = 3.37\si{\V}$.
 \subsection{Opamp Offset}
 
 The Opamp offset is represented as a voltage supply at the inverting input. Meaning the  $V_{-} = V_{ref} + V_{offset}$.
 
-For the Opamp used, the MCP6004, the input offset is $\pm 4.5mV$ \textsuperscript{\cite{MCP6001_datasheet}}. 
+For the Opamp used, the MCP6004, the input offset is $\pm 4.5\si{\milli\volt}$ \textsuperscript{\cite{MCP6001_datasheet}}. 
 
 \subsection{Relay Circuit}
 In order to turn the fan on and off, a relay needs to be powered by a transistor, since the Opamp does not output enough current, to turn the relay on and off. The circuit in figure \ref{fig:RelayCirc} was considered. The diode is added in order to protect the relay from voltage spikes cause by the sudden changes in current.
