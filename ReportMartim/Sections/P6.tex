@@ -1,0 +1,43 @@
+\newpage
+\section{Problem 6}
+\subsection{Principle of operation}
+
+A pressure sensor that uses a Wheatstone bridge operates by converting pressure-induced mechanical deformation into an electrical signal. The key principle involves strain gauges that change their resistance when stretched or compressed, as seen in figure \ref{fig:pressSens}, were $R_1 = R_3 = R-\Delta R$ and $R_2 = R_4 = R + \Delta R$. When pressure is applied, the value $\Delta R$ changes, making the output value, $V_+ -V_- = V_{out}$, change accordingly to pressure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.3]{Images/pressureWheatstone.png}
+    \caption{Pressure Sensor Wheatstone circuit.}
+    \label{fig:pressSens}
+\end{figure}
+
+The output Voltage is as shown in the equation \ref{eq:bridgeOut}:
+\begin{equation}
+    \label{eq:bridgeOut}
+    V_{out} = V_{in}\frac{\Delta R}{R}
+\end{equation}
+
+Since $\Delta R$ is proportional to pressure the relation of $V_{out}$ and pressure is shown in equation \ref{eq:pressVal}:
+\begin{equation}
+    \label{eq:pressVal}
+    V_{out} = V_{in}FS
+\end{equation}
+
+Where $F$ is the pressure and $S$ is the sensor sensitivity in $\frac{\si{\m\V}}{\si{V}}$, this value is specified by manufacture.
+
+\subsection{Smart Pressure Controlled Compressor}
+
+In applications were consistent pressure control, safety and efficiency is essential, a compressor that is able to output a consistent pressure, through a feedback system, might be the solution. This kind of compressor can be useful to fill tires to a consistent value, or even maintain a vacuum line pressure and change it remotely. 
+
+The system block diagram is shown in figure \ref{fig:BlockDiagramP6}. A compressor is responsible to ensure pressure, the electrical valve controls how much pressure there is at the output and the pressure sensor measures the pressure at the output. With an ESP32 as the MCU the system is able to preform a feedback loop to control the pressure set by the user, via HomeAssistant or a Potentiometer for manual adjustment.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/P6Block.png}
+    \caption{Compressor System Block Diagram.}
+    \label{fig:BlockDiagramP6}
+\end{figure}
+
+\subsection{Design}
+
+

@@ -6,7 +6,7 @@ Considering the transfer function in equation \ref{eq:tfP4}.
     H(z)=0.8\frac{1 - 6z^{-1} + z^{-2}}{1 - 0.36953z^{-1} + 0.19582z^{-2}}
 \end{equation}
 
-Therefor the numerator is $num = [1, -6, 1]$ and $den = [1, -0.36953, 0.19582]$.
+Therefor the numerator is $num = [1, -6, 1]$ and $den = [1, -0.36953, 0.19582z]$.
 
 Defining this in code:
 
@@ -44,8 +44,8 @@ print( 20*np.log10( abs(hz[0]) ) )
 Giving the following results:
 \begin{itemize}
     \item Zeros : $:[-5.8284, -0.1716]$
-    \item Poles : $[0.1848+0.4021j, 0.1848-0.4021j]$
-    \item DC Gain: $17.7809~\si{\dB}$
+    \item Poles : $[0.1848+0.4021j 0.1848-0.4021j]$
+    \item DC Gain: $17.7809dB$
 \end{itemize}
 
 In order to get the cutoff frequency:
@@ -58,7 +58,7 @@ cutoff_frequency = wz[cutoff_idx] / (2 * np.pi)
 print( cutoff_frequency )
 \end{lstlisting}
 
-Giving the cutoff frequency $F_c = 19921.875~\si{\Hz}$. And finally to get the frequency response.
+Giving the cutoff frequency $F_c = 19921.875~Hz$. And finally to get the frequency response.
 
 \begin{lstlisting}[language=python, caption = Specification Definition]
 
