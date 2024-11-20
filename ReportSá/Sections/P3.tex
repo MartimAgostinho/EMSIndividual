@@ -1,0 +1,140 @@
+\section{Problem 3}
+
+The goal for this problem is to design and implement a Finite Response Filter (FIR).
+
+\subsection{Specifications}
+
+The specifications for this filter are the following:
+\begin{itemize}
+    \item Cuttoff frequency  $= 392~Hz$
+    \item Sampling Frequency $= 80~kHz$
+    \item Type $\rightarrow$ LowPass
+\end{itemize}
+
+In order to design this filter its order must be defined although this can be done with the specification of the transition band, since this value is not defined, the filter order was set as $M = 400$, this number must be uneven, so the actual order is $401$. Another important specification is the filter window, again, since its not specified the window used was hamming.
+\vspace{1cm}
+\begin{lstlisting}[language=python, caption = Specification Definition]
+import scipy.signal as sig
+import numpy as np
+import math
+import matplotlib.pyplot as plt 
+from sympy import *
+
+
+k       = 1000
+Blue    = (       0, 101/255, 189/255 )
+Green   = (  52/255, 129/255,  65/255 )
+Orange  = ( 241/255,  89/255,  41/255 )
+
+CuttoffFreq = 392
+Fs          = 80*k
+Ts          = 1/Fs
+wc          = CuttoffFreq*2*np.pi
+ws          = Fs*2*np.pi 
+
+order       = 400
+
+order = math.ceil(order)
+if order % 2 == 0:
+    order += 1
+
+window = 'hamming'
+\end{lstlisting}
+
+\subsection{Design}
+
+With the specifications defined, the following code \ref{list:FirDesign}, creates the filter, shows its frequency response and cutoff frequency.
+
+\vspace{1cm}
+\label{list:FirDesign}
+\begin{lstlisting}[language=python, caption = Specification Definition]
+
+filter = sig.firwin(
+            order,
+            cutoff      = wc, 
+            window      = window, 
+            pass_zero   = True, 
+            scale       = True,
+            fs          = ws
+                )
+
+w,h = sig.freqz(filter)
+w   = w/(Ts*2*np.pi)
+mag = 20*np.log10( abs(h) )
+pha = np.angle( h,deg=True )   
+
+#Find cuttoff freq
+
+cutoff_idx       = np.where(mag <= 20*np.log10( abs(h[0]) )-3.01)[0][0]
+cutoff_frequency = w[cutoff_idx]
+print("Cutoff Frequency:",end='')
+print( cutoff_frequency )
+
+# Magnitude response
+plt.subplot(2, 1, 1)
+plt.semilogx(w, mag,color = Blue)
+plt.axvline(x=cutoff_frequency, color=Green, linestyle='--', linewidth=1,label="Cutoff Frequency")
+plt.title('Bode Magnitude Plot ')
+plt.ylabel('Magnitude (dB)')
+plt.grid(True)
+plt.legend()
+
+# Bode Phase response
+plt.subplot(2, 1, 2)
+plt.semilogx(w, pha,color=Blue)
+plt.xlabel('Frequency (rad/s)')
+plt.ylabel('Phase (degrees)')
+plt.grid(True)
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+This code gives a filter with a cutoff frequency of $312.5~Hz$, this is not the frequency designed, if this is critical for the particular application, the filter order can be increased, or a higher cutoff frequency can be used. The filter frequency response is shown in figure \ref{fig:FIRBode}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/FIRBode.png}
+    \caption{FIR Frequency Response.}
+    \label{fig:FIRBode}
+\end{figure}
+
+To visualise the window the following code \ref{list:WindowTime} was used.
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+
+def PlotWindow(FilterWindow):
+
+    TimeArray = [n*Ts for n in range(len(FilterWindow))]
+    plt.plot(TimeArray, FilterWindow, 'o', markersize=2, color=Blue)
+    plt.vlines(TimeArray, ymin=0, ymax=FilterWindow,
+               color=Blue, linestyle='-', linewidth=0.5)
+    plt.title("FIR Window")
+    # plt.ylabel( "DUNNO" )
+    plt.xlabel("Time(s)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+PlotWindow( filter )
+
+\end{lstlisting}
+
+Yielding, the graph shown in figure \ref{fig:FIRWindow}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/FIRWindow.png}
+    \caption{FIR Window.}
+    \label{fig:FIRWindow}
+\end{figure}
+
+In order to implement the FIR, the coefficients need to be displayed.
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+out = ''
+for c in filter:
+    out += str(c) + ", "
+out = out[:-2]
+print(out)
+\end{lstlisting}
+
