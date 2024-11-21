@@ -1,2 +1,192 @@
 \section{Problem 2}
-a
+
+The active filter in figure \ref{fig:P2Circ} as two stages, the first is a High Pass and the second is a Low Pass, making a Band Pass.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2Circ.png}
+    \caption{Active filter.}
+    \label{fig:P2Circ}
+\end{figure}
+
+Where the components values are as follow:
+
+\begin{equation}
+    \begin{aligned}
+        R_1 &= \SI{3.330}{\kilo\ohm}   &;R_2 &= \SI{62.900}{\kilo\ohm}\\
+        R_3 &= \SI{120.950}{\kilo\ohm} &;R_4 &= \SI{73.995}{\kilo\ohm}\\
+        R_5 &= \SI{18.000}{\kilo\ohm}  &;C_1 &= \SI{0.900}{\nano\farad}\\
+        C_2 &= \SI{0.900}{\nano\farad} &;C_3 &= \SI{40.550}{\nano\farad}    
+    \end{aligned}
+\end{equation}
+
+In order to get the transfer function the following script was made.
+
+\begin{lstlisting}[language=python, caption = Specification Definition]
+import scipy as sp 
+import scipy.signal as sig
+import numpy as np
+from sympy import *
+import matplotlib.pyplot as plt 
+from sympy import symbols, simplify, lambdify, I  # Import lambdify and I (imaginary unit) from SymPy
+
+def lin2dB(val):
+    return 20*np.log10(val)
+
+vin, v1, vx, vo, s = symbols("V_{in} V_1 V_x V_o s")
+
+#Passa-baixo
+
+na = 70392
+n  = 1e-9
+k  = 1000
+
+r1 = 3.33*k
+r2 = 62.9*k
+r3 = 120.8*k + k*na/(470000) 
+r4 = 30*k + k*na/1600
+r5 = 18*k
+c1 = 0.9*n
+c2 = 0.9*n
+c3 = 40.7*n - n*na/470000
+
+print(f"R1 = {r1/k:.3f} K   ;R2 = {r2/k:.3f} K")
+print(f"R3 = {r3/k:.3f} K   ;R4 = {r4/k:.3f} K")
+print(f"R5 = {r5/k:.3f} K   ;C1 = {c1*1e9:.3f} n")
+print(f"C2 = {c2*1e9:.3f} n   ;C3 = {c3*1e9:.3f} n")
+print("\n")
+z1 = 1/(s*c1)
+z2 = 1/(s*c2)
+z3 = 1/(s*c3)
+
+
+#Stage 1
+
+vp  = vin* r3/(r3+z3)
+if1 = vp/r5
+s1  = solve( v1 - if1*r4 - vp,v1)
+v1  = simplify(s1[0])
+
+print("\nFirst Stage Output:")
+pprint(v1)
+print("\nLatex Eq.: \n"+latex(v1))
+
+#Stage 2
+
+v1 = symbols("V_1")
+# Vx = V1 - Vr1
+saux = solve( vx*z2/(z2+r2) - vo,vx )
+#pprint(saux)
+vx = saux[0]
+
+s2 = solve( 
+    (vx - v1)/r1 + (vx)/(r2+z2) + (vx-vo)/z1
+    ,vo)[0]
+
+Fs = simplify( s2 )
+
+print("\nSecond Stage:")
+pprint(Fs)
+print("\nLatex: \n"+latex(Fs))
+
+Fs = simplify(Fs.subs(v1,s1[0])/vin)
+print( "\nFilter Transfer Function: " )
+pprint(Fs)
+print("\nLatex Eq.: \n"+latex(Fs))
+
+num,den = fraction(Fs)
+z       = solve( num,s )
+p       = solve( den,s )
+
+print("\n\nFilter Zeros: ")
+print(z)
+print("Filter Poles: ")
+print(p)
+print("Frequency:")
+for n in p:
+    print( f"{abs(n)/(2*np.pi)}" )
+ 
+Fs_numeric = lambdify(s, Fs, 'numpy')
+
+pmax = 6
+pmin = 0
+
+freqs  = np.logspace(pmin, pmax, 500)
+w = 2 * np.pi * freqs
+
+s_values = 1j * w 
+h = Fs_numeric(s_values) 
+
+MaxGain = max(abs(h))
+MaxPos  = np.unravel_index(np.argmax(h),h.shape)
+print("Max Gain: ",end="")
+print(lin2dB(MaxGain))
+print("Freq: ",end="")
+print( w[MaxPos]/(2*np.pi) )
+
+\end{lstlisting}
+
+The transfer function is shown in equation \ref{eq:P2Tf}.
+
+\begin{equation}
+    F_s(s) = \frac{3.094 \cdot 10^{35} s}{\left(2.016 \cdot 10^{13} s + 4.11 \cdot 10^{15}\right) \left(5.095 \cdot 10^{11}s^{2} + 1.79 \cdot 10^{17} s + 3.003 \cdot 10^{21}\right)}
+    \label{eq:P2Tf}
+\end{equation}
+
+This filter as a zero at $0$, and the poles are:
+\begin{itemize}
+    \item $p_1 = \SI{32.45}{\hertz}$
+    \item $p_2 = \SI{2.81}{\kilo\hertz}$
+    \item $p_3 = \SI{53.1}{\kilo\hertz}$
+\end{itemize}
+This transfer function produces the following Bode, figure \ref{fig:P2BodePy}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.4]{Images/P2BodePython.png}
+    \caption{Filter Bode.}
+    \label{fig:P2BodePy}
+\end{figure}
+
+The maximum gain is $\SI{14.07}{\decibel}$ at $\SI{299.9}{\hertz}$. The following script, finds the cutoff frequencies.
+
+\begin{lstlisting}[language=python, caption = Cutt Off Frequencies]
+ind = np.where(np.isclose(20*np.log10(abs(h)), lin2dB(MaxGain) - 3.01, atol=0.1))
+print("CutOff Freqs:")
+print(freqs[ind])
+\end{lstlisting}
+
+The cuttoff frequencies are $\SI{31.842}{\hertz}$ and $\SI{2824.241}{\hertz}$, this values correspond to the first and second poles.
+
+\subsection{Simulation}
+
+Simulating the circuit in LTSpice the bode is in figure \ref{fig:P2BodeLT}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2BodeLt.png}
+    \caption{Filter Bode LTSpice Simulation.}
+    \label{fig:P2BodeLT}
+\end{figure}
+
+In figure \ref{fig:StepSig} is the voltage supply creating a step. This signal rises from $\SI{0}{\volt}$ to $\SI{0.5}{\volt}$ in $\SI{700}{\nano\second}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{Images/StepSig.png}
+    \caption{Step signal.}
+    \label{fig:StepSig}
+\end{figure}
+
+
+Yielding the step response in figure \ref{fig:StepLT}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/StepResLT.png}
+    \caption{Step response, LTSpice.}
+    \label{fig:StepLT}
+\end{figure}
+
+The Rise time to $90\%$ is around $\SI{132.78}{\micro\second}$, and because it is a Band Pass it tends to $\SI{0}{\volt}$.
