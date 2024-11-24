@@ -7,8 +7,7 @@
 \providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
 \providecommand{\BIBentryALTinterwordstretchfactor}{4}
 \providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
-\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
-  \fontdimen4\font\relax}
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
 \providecommand{\BIBforeignlanguage}[2]{{%
 \expandafter\ifx\csname l@#1\endcsname\relax
 \typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
@@ -22,36 +21,24 @@
 \BIBdecl
 
 \bibitem{DC-Parameters-Input-Offset-Voltage}
-T.~Instruments, ``Dc parameters: Input offset voltage (vos),''
-  \href{https://www.ti.com/lit/an/sloa035/sloa035.pdf}{pdf-doc}, 2023.
+T.~Instruments, ``Dc parameters: Input offset voltage (vos),'' \href{https://www.ti.com/lit/an/sloa035/sloa035.pdf}{pdf-doc}, 2023.
 
 \bibitem{TI-Design-Resistive-Bridge-Pressure-Sensor}
-------, ``Design tips for a resistive-bridge pressure sensor in industrial
-  process-control systems,''
-  \href{https://www.ti.com/lit/an/slyt640/slyt640.pdf?ts=1731808563894&ref_url=https%253A%252F%252Fwww.ti.com%252Fsolution%252Finfusion-pump%253Fvariantid%253D34094%2526subsystemid%253D19445}{pdf-doc},
-  2015.
+------, ``Design tips for a resistive-bridge pressure sensor in industrial process-control systems,'' \href{https://www.ti.com/lit/an/slyt640/slyt640.pdf?ts=1731808563894&ref_url=https%253A%252F%252Fwww.ti.com%252Fsolution%252Finfusion-pump%253Fvariantid%253D34094%2526subsystemid%253D19445}{pdf-doc}, 2015.
 
 \bibitem{TI-Design-Signal-Conditioning-Wheatstone-Resistive-Bridge-Sensors}
-------, ``Signal conditioning wheatstone resistive bridge sensors,''
-  \href{https://www.ti.com/lit/an/sloa034/sloa034.pdf}{pdf-doc}, 1999.
+------, ``Signal conditioning wheatstone resistive bridge sensors,'' \href{https://www.ti.com/lit/an/sloa034/sloa034.pdf}{pdf-doc}, 1999.
 
 \bibitem{26PC-Datasheet}
 Honeywell, ``26pc series low pressure sensors, comp/unamp, 0.5 psi to 250 psi datasheet,'' \href{https://prod-edam.honeywell.com/content/dam/honeywell-edam/sps/siot/en-us/products/sensors/pressure-sensors/board-mount-pressure-sensors/26pc-series/documents/sps-siot-26pc-series-miniature-low-pressure-sensors-datasheet-32307741-a-en-ciid-155865.pdf?download=false}{pdf-datasheet}, 2024.
 
 \bibitem{ASCO-226-Datasheet}
-ASCO, ``Asco series 226 proportional inline miniature solenoid valves
-  datasheet,''
-  \href{https://www.valin.com/sites/default/files/2023/asset/document/asco-series-226-proportional-inline-miniature-solenoid-valves-datasheet.pdf}{pdf-datasheet},
-  2023.
+ASCO, ``Asco series 226 proportional inline miniature solenoid valves datasheet,'' \href{https://www.valin.com/sites/default/files/2023/asset/document/asco-series-226-proportional-inline-miniature-solenoid-valves-datasheet.pdf}{pdf-datasheet}, 2023.
 
 \bibitem{ESP32-datasheet}
-E.~Systems, ``Esp32 series datasheet,''
-  \url{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf},
-  2024.
+E.~Systems, ``Esp32 series datasheet,'' \url{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf}, 2024.
 
 \bibitem{WET150-Datasheet}
-Dynamax, ``Wet150 datasheet,''
-  \href{https://www.dynamax.com/images/uploads/papers/WET150.pdf}{pdf-datasheet},
-  2024.
+Dynamax, ``Wet150 datasheet,'' \href{https://www.dynamax.com/images/uploads/papers/WET150.pdf}{pdf-datasheet}, 2024.
 
 \end{thebibliography}
