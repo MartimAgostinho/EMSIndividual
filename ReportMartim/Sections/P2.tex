@@ -1,5 +1,7 @@
 \section{Problem 2}
 
+\subsection{Filter Characterization}
+
 The active filter in figure \ref{fig:P2Circ} as two stages, the first is a High Pass and the second is a Low Pass, making a Band Pass.
 
 
@@ -144,7 +146,7 @@ This transfer function produces the following Bode, figure \ref{fig:P2BodePy}:
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[scale = 0.4]{Images/P2BodePython.png}
+    \includegraphics*[scale = 0.6]{Images/P2BodePython.png}
     \caption{Filter Bode.}
     \label{fig:P2BodePy}
 \end{figure}
@@ -170,6 +172,14 @@ Simulating the circuit in LTSpice the bode is in figure \ref{fig:P2BodeLT}:
     \label{fig:P2BodeLT}
 \end{figure}
 
+And with the group delay in figure \ref{fig:P2Group}, although it is constant in the beginning and at the end it has a big variation in the pass band.
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2Group.png}
+    \caption{Filter Bode with Group Delay Simulation.}
+    \label{fig:P2Group}
+\end{figure}
+
 In figure \ref{fig:StepSig} is the voltage supply creating a step. This signal rises from $\SI{0}{\volt}$ to $\SI{0.5}{\volt}$ in $\SI{700}{\nano\second}$.
 
 \begin{figure}[H]
@@ -190,3 +200,10 @@ Yielding the step response in figure \ref{fig:StepLT}:
 \end{figure}
 
 The Rise time to $90\%$ is around $\SI{132.78}{\micro\second}$, and because it is a Band Pass it tends to $\SI{0}{\volt}$.
+
+\subsection{Real Opamp Characteristics Impact}
+
+
+\subsubsection{Gain Bandwith Product (GBW)}
+
+Since the filter has two stages the GBW of each need to be analyzed separately but in the context of the full filter.
