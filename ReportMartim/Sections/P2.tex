@@ -200,10 +200,17 @@ Yielding the step response in figure \ref{fig:StepLT}:
 \end{figure}
 
 The Rise time to $90\%$ is around $\SI{132.78}{\micro\second}$, and because it is a Band Pass it tends to $\SI{0}{\volt}$.
-
+\newpage
 \subsection{Real Opamp Characteristics Impact}
 
+\subsubsection{Opamp input offset}
 
+For the first stage using superposition:
+\begin{equation}
+    V_{out1}=V_{offset2}\cdot\left (1 + \frac{R_4}{R_5}\right )
+\end{equation}
+
+And the for the second stage it has no gain therefore $V_{out1} = V_{offset2}$ 
 \subsubsection{Gain Bandwith Product (GBW)}
 
 Since the filter has two stages the GBW of each need to be analyzed separately but in the context of the full filter.
@@ -242,3 +249,49 @@ For the second stage, the gain is $1$, hence, GBW need is $\SI{3}{\kilo\hertz}$,
     %\label{fig:P2Stg1Bode}
 \end{figure}
 
+\subsubsection{Output Saturation}
+
+A real Opamp will saturate when the output is near to the supply voltage, therefore the input range is:
+
+\begin{equation}
+   V_{in} \in \left [ \frac{V_{Sat-}}{5.11} , \frac{V_{Sat+}}{5.11} \right ]
+\end{equation}
+
+\subsection{OpAmp selection}
+
+\subsection{Single Supply Design}
+
+Since the input already decouples the DC signal, it is only needed to add a DC offset to the node after the first capacitor.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2CircSingSup.png}
+    \caption{Single Supply Circuit Version}
+    %\label{fig:P2Stg1Bode}
+\end{figure}
+
+Where $R_6$ and $R_3$ solve the following system:
+
+\begin{equation}
+    \begin{cases}
+        \frac{R_3 \cdot R_6}{R_3 + R_6} = \SI{120,95}{\kilo\ohm}\\
+        \cancel{V_{CC}}\cdot\frac{R_3}{R_3 + R_6} = \frac{\cancel{V_{CC}}}{2\cdot A_d} 
+    \end{cases}
+\end{equation}
+
+\begin{equation}
+    \begin{cases}
+        R_3 = \SI{26.2}{\kilo\ohm} \\
+        R_6 = \SI{241.9}{\kilo\ohm}
+    \end{cases}
+    \label{eq:sysSol}
+\end{equation}
+
+Simulating the circuit with values in equation \ref{eq:sysSol}, yields the results in figure \ref{fig:SingSupSim}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/SingSupSim.png}
+    \caption{Single Supply Simulation}
+    \label{fig:SingSupSim}
+\end{figure}
