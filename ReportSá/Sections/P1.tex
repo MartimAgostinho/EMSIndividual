@@ -56,15 +56,35 @@ Using superposition, to evaluate the current effect on the output, the following
 
     \end{cases}
 \end{equation}
+So, the relation between the output voltage and the current bias is expressed in equation \ref{Eq:voutibias}.
+\begin{equation}
+    V_{out} = \frac{I_{BIAS-} \left(R_{2} R_{3} + R_{2} R_{4} - R_{3}^{2} R_{4}\right)}{R_{3}^{2} + R_{3} + R_{4}}
+    \label{Eq:voutibias}
+\end{equation}
 
-The $V_{Off}$ will only affect the saturation voltage of the circuit, will shift by the value of the $V_{Off}$, $Max \in [V_{Sat - } + V_{Off}, V_{Sat + } + V_{Off}]$
+\subsection{Voltage offset}
 
+To calculate the impact of the voltage offset of the OPAMP, a voltage supply is added in the negative input terminal of the OPAMP, as shown in Figure \ref{Ex1offset}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.6]{Images/Voffsim.png}
+    \caption{Circuit with input voltage offset}
+    \label{Ex1offset}
+\end{figure}
+
+The $V_{Off}$ will only affect the DC value of the output signal, this value is obtained by the equation \ref{eq:offset}.
+
+\begin{equation}
+    V_{outDC} = A_d \cdot (V_{Off} + V_{inDC})
+    \label{eq:offset}
+\end{equation}
 \subsection{Voltage Input Range}
 
 Considering the total gain of the circuit $A_d$ and the $V_{Off}$ of the OpAmp, the maximum input voltage for this circuit will be:
 
 \begin{equation}
-   V_{in} \in [\frac{V_{Sat-}}{A_d} + V_{Off}, \frac{V_{Sat+}}{A_d} + V_{Off} ]
+   V_{in} \in [\frac{V_{Sat-} + V_{Off}}{A_d}, \frac{V_{Sat+} + V_{Off}}{A_d} ]
 \end{equation}
 
 \subsection{Output Noise}

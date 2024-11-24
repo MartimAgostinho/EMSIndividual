@@ -76,7 +76,7 @@ Considering the hysteresis window, figure \ref{fig:HysterWindow} and $R_1 = 5K$.
 \begin{equation}
     \begin{aligned}
         V_H &= 5\frac{R_1}{R_1 + NTC(T_2)} = 3.555\\
-        V_L &= 5\frac{R_1}{R_1 + NTC(T_1)} = 3.345
+        V_L &= 5\frac{R_1}{R_1 + NTC(T_1)} = 3.535
     \end{aligned}
 \end{equation}
 
@@ -100,7 +100,7 @@ Hence:
 
 Since $R_f$ needs to be $>>5K$ and since the output is either high or low thermal noise should not be problem, $R_f$ was set as $1M\Omega$. 
 
-Therefore, solving equation \ref{eq:solR5}, $R_5 = 4.6k$ and $V_{ref} = 3.37V$.
+Therefore, solving equation \ref{eq:solR5}, $R_5 = 4k$ and $V_{ref} = 3.54V$.
 \subsection{Opamp Offset}
 
 The Opamp offset is represented as a voltage supply at the inverting input. Meaning the  $V_{-} = V_{ref} + V_{offset}$.
@@ -127,12 +127,12 @@ In order to turn the fan on and off, a relay needs to be powered by a transistor
 
 From the NPN transistor 2N2222 datasheet \textsuperscript{\cite{2N2222_datasheet}}, the following values were taken:
 \begin{itemize}
-    \item $V_{BE} = $
-    \item $\beta = $
+    \item $V_{BE} = 1.3V$
+    \item $\beta = 75$
 \end{itemize}
-And from the relay datasheet \textsuperscript{\cite{ST2-DC5V-F_datasheet}}, $I_C = I_{Relay} = $.
+And from the relay datasheet \textsuperscript{\cite{ST2-DC5V-F_datasheet}}, $I_C = I_{Relay} = 47.6mA$.
 
-Hence $R = $.
+Hence $R = 5.830k$.
 
 \subsubsection{Comparator Simulation}
 
@@ -140,18 +140,18 @@ In order to test the design the circuit in figure \ref{fig:TestCirc} was tested 
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[scale = 0.4]{Images/CompSimCirc.png}
+    \includegraphics*[scale = 0.5]{Images/Simex5.png}
     \caption{Simulation test circuit.}
     \label{fig:TestCirc}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[scale = 0.25]{Images/CompSimRes.png}
+    \includegraphics*[scale = 0.25]{Images/grafex5.png}
     \caption{Simulation test results.}
     \label{fig:TestRes}
 \end{figure}
 
-As shown in figure \ref{fig:TestRes}, the output starts at HIGH and therefore the $V_{in}$ value to change the output to LOW needs to be $\approx 3.365V$ and in the simulation the value is $3.37V$. As for the change from LOW back to HIGH the designed value was $\approx 3.388V$ and in the simulation it changed at $3.39V$, this confirmed the effectiveness of the comparator circuit.
+As shown in figure \ref{fig:TestRes}, the output starts at HIGH and therefore the $V_{in}$ value to change the output to LOW needs to be $\approx 3.535V$ and in the simulation the value is $3.35V$. As for the change from LOW back to HIGH the designed value was $\approx 3.355V$ and in the simulation it changed at $3.357V$, this confirmed the effectiveness of the comparator circuit.
 
 
