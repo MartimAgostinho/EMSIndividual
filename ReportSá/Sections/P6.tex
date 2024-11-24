@@ -41,12 +41,12 @@ The primary objective of this system is to maintain a constant amount of water s
     \label{DiagramaBlocos}   
 \end{figure}
 
-For this system, the typical pressure of a water dispenser is around $60 psi$, so the range of the pressure sensor needs to be between $0-100 psi$, so the best sensor for this case will be the 26PCFFA6D.
+For this system, the typical pressure of a water dispenser is around $60 psi$, so the range of the pressure sensor needs to be between $0-100 psi$, so the best sensor for this case will be the 26PCFFA6D\textsuperscript{\cite{26PC-Datasheet}}.
 
 \subsection{Implementation}
 
 \subsubsection{Analog Front End}
-Since the span of the output voltage for the chosen sensor is $100 mV$, and the linearity can be assured for $60\%$ of the span, this system will require an AFE who will be responsible for the signal processing of the output signal from the water pressure sensor. Since the MCU used for this implementation is the ESP32, the output voltage of the AFE needs to be within the range of the ESP32 ADC's, to avoid signal loss due to characteristics of the MCU used, the range used will be $V_{outAFE} \in [150, 950] mV$. Because the signal in question is only a DC signal, there is no need of filtering in the AFE circuit, so only the adjustment of the signal voltage is required by this circuit.
+Since the span of the output voltage for the chosen sensor is $100 mV$, and the linearity can be assured for $60\%$ of the span\textsuperscript{\cite{26PC-Datasheet}}, this system will require an AFE who will be responsible for the signal processing of the output signal from the water pressure sensor. Since the MCU used for this implementation is the ESP32, the output voltage of the AFE needs to be within the range of the ESP32 ADC's, to avoid signal loss due to characteristics of the MCU used\textsuperscript{\cite{ESP-IDF-Programming-Guide}}, the range used will be $V_{outAFE} \in [150, 950] mV$. Because the signal in question is only a DC signal, there is no need of filtering in the AFE circuit, so only the adjustment of the signal voltage is required by this circuit.
 
 \subsubsection{MCU}
 

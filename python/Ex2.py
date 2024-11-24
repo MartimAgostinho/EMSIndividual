@@ -12,7 +12,7 @@ vin, v1, vx, vo, s = symbols("V_{in} V_1 V_x V_o s")
 
 #Passa-baixo
 
-na = 70392
+na = 70386
 n  = 1e-9
 k  = 1000
 
