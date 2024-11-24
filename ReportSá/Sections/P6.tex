@@ -1,1 +1,53 @@
 \section{Problem 6}
+
+\subsection{Pressure sensor - Principle of operation}
+
+A common way of designing a pressure sensor is by using a Wheatstone bridge. The bridge is made up of four resistors sensible to mechanical stress. 
+
+One implementation of this sensor is shown in Figure \ref{fig:wheatstone_bridge}. When pressure is applied each resistor either compress or stretch. These sensors are design in order to the opposite resistors in the bridge change their resistance accordingly, i.e., in the example of Figure \ref{fig:wheatstone_bridge}, $R - \triangle R$ decrease by compression, $R + \triangle R$ increase by stretching\textsuperscript{\cite{TI-Design-Resistive-Bridge-Pressure-Sensor}}. This change in resistance yields a change in the differential voltage, $V0$, which is proportional to the applied pressure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.4]{images/wheatstone-bridge.png}
+    \caption{Pressure sensor Wheatstone bridge implementation.} 
+    \label{fig:wheatstone_bridge}
+\end{figure}
+
+When the bridge is connected to a voltage source and the output voltage is measured across the bridge it is given by the Equation \ref{eq:output_voltage}:
+
+\begin{equation}
+    V_0 = V_{in}\cdot \frac{\triangle R}{R}
+    \label{eq:output_voltage}
+\end{equation}
+
+Where $V_{in}$ is the input voltage, $\triangle R$ is the change in resistance and $R$ is the initial resistance of the resistors. Since $\triangle R$ is proportional to the force or pressure, Equation \ref{eq:output_voltage}
+can be rewritten as:
+
+\begin{equation}
+    V_0 = V_{in}\cdot F \cdot S
+    \label{eq:output_voltage_force}
+\end{equation}
+
+Where $F$ is the force or pressure and $S$ is the sensitivity of the sensor in mV per volt of excitation with full scale input, specified by the sensor manufacture\textsuperscript{\cite{TI-Design-Signal-Conditioning-Wheatstone-Resistive-Bridge-Sensors}}.
+
+\subsection{Water Cooling Tank System}
+
+The primary objective of this system is to maintain a constant amount of water stored and cold through a smart valve system, so the water withdrawn from the tank is automatically replaced, thus avoiding air entering the tank, in order to create pressure to guarantee the outflow of water form the tank. This objective can be achieved be assuring that the water pressure in the output valve is the same of the input vale of the tank. In figure \ref{DiagramaBlocos} is shown the block diagram of the system:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.5]{images/Diagramablocos.png}
+    \caption{System blocks diagram.} 
+    \label{DiagramaBlocos}   
+\end{figure}
+
+For this system, the typical pressure of a water dispenser is around $60 psi$, so the range of the pressure sensor needs to be between $0-100 psi$, so the best sensor for this case will be the 26PCFFA6D.
+
+\subsection{Implementation}
+
+\subsubsection{Analog Front End}
+Since the span of the output voltage for the chosen sensor is $100 mV$, and the linearity can be assured for $60\%$ of the span, this system will require an AFE who will be responsible for the signal processing of the output signal from the water pressure sensor. Since the MCU used for this implementation is the ESP32, the output voltage of the AFE needs to be within the range of the ESP32 ADC's, to avoid signal loss due to characteristics of the MCU used, the range used will be $V_{outAFE} \in [150, 950] mV$. Because the signal in question is only a DC signal, there is no need of filtering in the AFE circuit, so only the adjustment of the signal voltage is required by this circuit.
+
+\subsubsection{MCU}
+
+After the signal is read by the MCU's ADC, the restoration of the original signal is needed to determine the water pressure of the output valve, in order to control an input valve connected to the water tank, so the input water pressure is the same of the output pressure, to maintain the same amount of water in the tank all the time, avoiding this way air entering the tank. The MCU will need to have a secondary script running in parallel to the water pressure system. This second function will need to control the water temperature in the tank, using a temperature sensor and a cooling system around the tank.
