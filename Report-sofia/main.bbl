@@ -27,10 +27,7 @@ T.~Instruments, ``Design tips for a resistive-bridge pressure sensor in industri
 ------, ``Signal conditioning wheatstone resistive bridge sensors,'' \href{https://www.ti.com/lit/an/sloa034/sloa034.pdf}{pdf-doc}, 1999.
 
 \bibitem{26PC-Datasheet}
-Honeywell, ``26pc series low pressure sensors, comp/unamp, 0.5 psi to 250 psi
-  datasheet,''
-  \href{https://prod-edam.honeywell.com/content/dam/honeywell-edam/sps/siot/en-us/products/sensors/pressure-sensors/board-mount-pressure-sensors/26pc-series/documents/sps-siot-26pc-series-miniature-low-pressure-sensors-datasheet-32307741-a-en-ciid-155865.pdf?download=false}{pdf-datasheet},
-  2024.
+Honeywell, ``26pc series low pressure sensors, comp/unamp, 0.5 psi to 250 psi datasheet,'' \href{https://prod-edam.honeywell.com/content/dam/honeywell-edam/sps/siot/en-us/products/sensors/pressure-sensors/board-mount-pressure-sensors/26pc-series/documents/sps-siot-26pc-series-miniature-low-pressure-sensors-datasheet-32307741-a-en-ciid-155865.pdf?download=false}{pdf-datasheet}, 2024.
 
 \bibitem{ASCO-226-Datasheet}
 ASCO, ``Asco series 226 proportional inline miniature solenoid valves datasheet,'' \href{https://www.valin.com/sites/default/files/2023/asset/document/asco-series-226-proportional-inline-miniature-solenoid-valves-datasheet.pdf}{pdf-datasheet}, 2023.
