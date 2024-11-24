@@ -51,18 +51,49 @@ Using superposition, to evaluate the current effect on the output, the following
     
         V_- = V_+ = 0 \\
         I_{R_1} = 0\\
-        \frac{V_x}{R_4} + \frac{V_x - V_{out}}/R_3 + I_{bias-}\\
+        \frac{V_x}{R_4} + \frac{V_x - V_{out}}{R_3} + I_{bias-}\\
         V_{out} = I_{bias-} - \frac{V_x - V_{out}}{R_3}
 
     \end{cases}
 \end{equation}
 
-The $V_{Off}$ will only affect the saturation voltage of the circuit, will shift by the value of the $V_{Off}$, $Max \in [V_{Sat - } + V_{Off}, V_{Sat + } + V_{Off}]$
+Solving:
+\begin{equation}
+    V_{out} = \frac{I_{BIAS-} \left(R_{2} R_{3} + R_{2} R_{4} - R_{3}^{2} R_{4}\right)}{R_{3}^{2} + R_{3} + R_{4}}
+\end{equation}
+
+\subsection{Opamp Offset Voltage}
+
+The Opamp offset voltage is represented through a series voltage supply in the non inverting input, therefore through superposition $V_+ = V_{offet}$, hence:
+
+\begin{equation}
+     V_{out} = \frac{ R_{1} R_{4} + R_{2} R_{4} + R_{3} \left(R_{1} + R_{2} + R_{4}\right)}{R_{1} R_{4}}\cdot V_{offset}
+\end{equation}
+
 
 \subsection{Voltage Input Range}
 
-Considering the total gain of the circuit $A_d$ and the $V_{Off}$ of the OpAmp, the maximum input voltage for this circuit will be:
+Taking into account the total gain of the circuit $A_d$ and the offset voltage $V{offset}$ of the OpAmp, the input voltage range for this circuit is:
 
 \begin{equation}
-   V_{in} \in [\frac{V_{Sat-}}{A_d} + V_{Off}, \frac{V_{Sat+}}{A_d} + V_{Off} ]
+   V_{in} \in \left [ \frac{V_{Sat-}}{A_d} - V_{offset}, \frac{V_{Sat+}}{A_d} - V_{offset} \right ]
+\end{equation}
+
+\subsection{Output Noise}
+
+The output noise can be calculated by placing a voltage supply in series with any resistor in the circuit, where this supply RMS value is $4K\cdot T\cdot R\cdot Bw$.
+
+In order to analyse each component noise, the theorem of superposition is use, yielding the system of equation \ref{eq:NoiseP1}.
+
+\begin{equation}
+    \begin{cases}
+        V_{O1n} &= V_{R1_nrms} \frac{- R_{2} R_{3} - R_{2} R_{4} - R_{3} R_{4}}{R_{1} R_{4}} \\
+        V_{O2n} &= V_{R2_nrms} \left(1 + \frac{R_{3}}{R_{4}}\right)  \\
+        V_{O3n} &= V_{R3_nrms}\\
+        V_{O4n} &= V_{R4_nrms} \left(1 + \frac{R_{3}}{R_{4}} \right)\\
+        V_{O5n} &= V_{In_nrms}\frac{ R_{1} R_{4} + R_{2} R_{4} + R_{3} \left(R_{1} + R_{2} + R_{4}\right)}{R_{1} R_{4}}\\
+        V_{O6n} &= I_{Inn_nrms} + \frac{R_{1} \left(R_{2} R_{3} + R_{2} R_{4} + R_{3} R_{4}\right)}{- R_{1} R_{4} + R_{2} R_{3} + R_{2} R_{4} + R_{3} R_{4}} \\
+        V_{O7n} &= V_{nOpAmp}
+    \end{cases}
+    \label{eq:NoiseP1}
 \end{equation}

@@ -67,7 +67,7 @@ For this circuit to work $R_5$ and $R_f$ need to be considerably bigger than $NT
 \begin{figure}[H]
     \centering
     \includegraphics*[scale = 0.5]{Images/HysteresisWindow.png}
-    \caption{Hysteresis window \textcolor{red}{Citar o enunciado}}
+    \caption{Hysteresis window \textsuperscript{\cite{Individual_statement}}}
     \label{fig:HysterWindow}
 \end{figure}
 
@@ -91,6 +91,7 @@ When $V_{out} = LOW$:
 
 \begin{equation}
     V_+ = V_H\frac{R_f}{R_f + R_5}
+    \label{eq:VpLow}
 \end{equation}
 Hence:
 \begin{equation}
@@ -103,9 +104,17 @@ Since $R_f$ needs to be $>>5K$ and since the output is either high or low therma
 Therefore, solving equation \ref{eq:solR5}, $R_5 = \SI{4.6}{\kilo\ohm}$ and $V_{ref} = 3.37\si{\V}$.
 \subsection{Opamp Offset}
 
-The Opamp offset is represented as a voltage supply at the inverting input. Meaning the  $V_{-} = V_{ref} + V_{offset}$.
+The Opamp offset is represented as a voltage supply at the non-inverting input. Meaning the  $V_{+} = V_{ref} + V_{offset}$.
 
 For the Opamp used, the MCP6004, the input offset is $\pm 4.5\si{\milli\volt}$ \textsuperscript{\cite{MCP6001_datasheet}}. 
+
+From rewriting equation \ref{eq:VpLow}, with the Opamp offset:
+
+\begin{equation}
+    V_H = \left ( V_+ + V_{offset}\right )\frac{R_f +R_5}{R_f}
+\end{equation}
+ 
+Hence, for the comparator switch from LOW to HIGH $V_{in} = 3.388 + 4.52\cdot 10^{-3} = 3.393$, this represents a difference from the goal temperature of $\SI{0.144}{\kelvin}$, which for this application is not significant.
 
 \subsection{Relay Circuit}
 In order to turn the fan on and off, a relay needs to be powered by a transistor, since the Opamp does not output enough current, to turn the relay on and off. The circuit in figure \ref{fig:RelayCirc} was considered. The diode is added in order to protect the relay from voltage spikes cause by the sudden changes in current.
