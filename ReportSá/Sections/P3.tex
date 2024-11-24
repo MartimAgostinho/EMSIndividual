@@ -6,7 +6,7 @@ The goal for this problem is to design and implement a Finite Response Filter (F
 
 The specifications for this filter are the following:
 \begin{itemize}
-    \item Cuttoff frequency  $= 392~Hz$
+    \item Cuttoff frequency  $= 386~Hz$
     \item Sampling Frequency $= 80~kHz$
     \item Type $\rightarrow$ LowPass
 \end{itemize}
@@ -26,7 +26,7 @@ Blue    = (       0, 101/255, 189/255 )
 Green   = (  52/255, 129/255,  65/255 )
 Orange  = ( 241/255,  89/255,  41/255 )
 
-CuttoffFreq = 392
+CuttoffFreq = 386
 Fs          = 80*k
 Ts          = 1/Fs
 wc          = CuttoffFreq*2*np.pi
@@ -93,13 +93,14 @@ This code gives a filter with a cutoff frequency of $312.5~Hz$, this is not the 
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[scale = 0.5]{Images/FIRBode.png}
+    \includegraphics*[scale = 0.5]{Images/BodeFIR.png}
     \caption{FIR Frequency Response.}
     \label{fig:FIRBode}
 \end{figure}
 
 To visualise the window the following code \ref{list:WindowTime} was used.
 
+\label{list:WindowTime}
 \begin{lstlisting}[language=python, caption = Specification Definition]
 
 def PlotWindow(FilterWindow):
@@ -123,7 +124,7 @@ Yielding, the graph shown in figure \ref{fig:FIRWindow}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics*[scale = 0.5]{Images/FIRWindow.png}
+    \includegraphics*[scale = 0.5]{Images/WindowFIR.png}
     \caption{FIR Window.}
     \label{fig:FIRWindow}
 \end{figure}
