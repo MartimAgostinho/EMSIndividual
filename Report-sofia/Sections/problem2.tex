@@ -128,13 +128,13 @@ como vout é igual à tensão no no no ampop ideal o ofsset será vos
     \label{fig:step_vos}
 \end{figure}
 
-Observing the step response in Figure \ref{fig:step_vos}, the input offset voltages cause an offset in the output signal, the output signal is not zero when the input signal is zero. The input offset voltages of both OPAMPs causes a DC offset in the output signal.
+Observing the step response in Figure \ref{fig:step_vos2}, the input offset voltages cause an offset in the output signal, the output signal is not zero when the input signal is zero. The input offset voltages of both OPAMPs causes a DC offset in the output signal.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{images/step_vos2.png}
     \caption{Step response of the third-order low-pass filter with 0V input signal}
-    \label{fig:step_vos}
+    \label{fig:step_vos2}
 \end{figure}
 
 \subsection{GBW Specification}
@@ -173,15 +173,85 @@ The maximum signal excursion at the output of an OPAMP is limited. Considering t
 OPAMP has a rail-to-rail capability at the output, determine the maximum input signal
 amplitude below which the output does not saturate.
 
+The output voltage of the OPAMP is limited by its power supply voltages:
+
+\begin{equation}
+    \begin{aligned}
+        V_{out(max)} = V_{cc} - V_{headroom} \\
+        V_{out(min)} = V_{ee} + V_{headroom}
+    \end{aligned}
+\end{equation}
+
+For ideal OPAMPs, the output voltage is limited by the power supply voltages. For real OPAMPs, the output voltage is limited by the headroom voltage, which is the voltage drop between the power supply voltage and the output voltage. 
+
+To determine the output voltage range, the headroom voltage must be considered. 
+
+The output voltage is related to the input voltage by the gain of the OPAMP:
+
+\begin{equation}
+    V_{out} = A_v \times V_{in}
+\end{equation}
+
+For the output to stay within the output voltage range, the input voltage must be limited by:
+
+\begin{equation}
+    -V_{negative-rail} <= A_v \times V_{in} <= V_{positive-rail}
+\end{equation}
+
+Thus, the maximum input signal amplitude is given by:
+
+\begin{equation}
+    V_{in(max)} = \frac{V_{rail}}{A_v}
+\end{equation}
+
+Where $V_{rail}$ is the smaller of the two power supply voltages.
+
+The maximum input signal amplitude is the maximum input signal amplitude that does not saturate the output of the OPAMP.
+
+In this case, the relationship between the $V_{in}$ and $V_rail$ is given by:
+
+\begin{equation}
+    V_{in(max)} = \frac{V_{rail}}{10^{(13.3/20)}} = \frac{V_{cc}}{4.62}
+\end{equation}
+
 \subsection{OpAmp Selection}
 Select a commercial OPAMP that fits the filter specifications. Explain which OPAMP
 parameters/criteria were considered in your decision. For example: GBW?, supply voltage?, …,
 price?, etc.
 
+
+\subsubsection{Gain Bandwidth Product (GBW):}
+
+The OPAMP's GBW should be equal or higher than the required GBW for the filter stages. Hence, for a filter that requires a GBW of 12.9 kHz, the choosen OPAMP as to accomplish a GBW of 12.9 kHz or higher.
+
+\subsubsection{Noise Performance:}
+
+The OPAMP's noise performance is crucial for low-noise applications. The input-referred noise voltage should be as low as possible. For instance, if the input-referred noise voltage is $10 nV/\sqrt{Hz}$, the total noise voltage at the output can be calculated as follows:
+
+\begin{equation}
+    V_{noise} = \sqrt{f_{BW}} \times V_{n}
+\end{equation}
+
+Where $f_{BW}$ is the bandwidth of the filter and $V_{n}$ is the input-referred noise voltage of the OPAMP.
+
+\subsubsection{Slew Rate:}
+
+The slew rate must be high enough to avoid distortion at the maximum signal frequency and amplitude:
+
+\begin{equation}
+    Slew Rate \geq 2\pi f_{max} V_{peak}
+\end{equation}
+
+\subsubsection{Input Offset Voltage:}
+
+For circuits sensitive to DC biasing errors, the selection of an OPAMP with low input offset voltage is mandatory.
+
+The OPAMP selected was the MCP6002, a dual OPAMP with a GBW of 1 MHz, a slew rate of 0.6 V/$\mu$s, and an input offset voltage of 4 mV. The MCP6002 is a low-power CMOS OPAMP with rail-to-rail input and output. The MCP6002 is a good choice for this filter because it has a GBW higher than the required GBW for the filter stages, a low input offset voltage, and a low price\textsuperscript{\cite{mcp-datasheet}}.
+
 \subsection{Signal to Noise Ratio}
-Considerer an input sinusoidal input with 10 mV of amplitude and with a frequency inside the
+\textcolor{red}{Considered an input sinusoidal input with 10 mV of amplitude and with a frequency inside the
 pass band of the filter. Obtain the signal to noise ratio at the output node. Consult the input
-referred noise value of the opamp indicated in the moodle page.
+referred noise value of the opamp indicated in the moodle page.}
 
 \subsection{Single supply version}
-Modify the circuit of Figure 2 to operate with only one power supply, i.e., propose a single supply version.
+textcolor{red}{Modify the circuit of Figure 2 to operate with only one power supply, i.e., propose a single supply version.}
