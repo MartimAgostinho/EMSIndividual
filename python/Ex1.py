@@ -25,8 +25,9 @@ vx  = s3[0]
 eq1 = Eq( vo - (vx - vo)*r3,ibiasn*r2 )
 pprint(eq1)
 s2  = solve(eq1,vo)
+print("Ibias Vo")
 pprint(simplify(s2[0]))
-#print( latex( vo2 ) )
+print( latex( s2[0] ) )
 #vo2 = s2[0]
 
 #vo = vo1 + vo2
