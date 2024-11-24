@@ -5,3 +5,6 @@ Report*/main.*
 schematics/*.log
 schematics/*.net
 schematics/*.raw
+schematics/*.asc
+
+Report-sofia/LTSpice/*.asc
