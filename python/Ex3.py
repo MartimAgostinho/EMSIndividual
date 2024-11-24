@@ -10,7 +10,7 @@ Blue    = (       0, 101/255, 189/255 )
 Green   = (  52/255, 129/255,  65/255 )
 Orange  = ( 241/255,  89/255,  41/255 )
 
-CuttoffFreq = 392
+CuttoffFreq = 386
 Fs          = 80*k
 Ts          = 1/Fs
 wc          = CuttoffFreq*2*np.pi

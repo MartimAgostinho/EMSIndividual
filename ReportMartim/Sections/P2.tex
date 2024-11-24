@@ -207,3 +207,38 @@ The Rise time to $90\%$ is around $\SI{132.78}{\micro\second}$, and because it i
 \subsubsection{Gain Bandwith Product (GBW)}
 
 Since the filter has two stages the GBW of each need to be analyzed separately but in the context of the full filter.
+
+For the first stage the Max Gain is $1 + \frac{R_4}{R_5} = \SI{14.17}{\decibel}$ and with a cuttoff Frequency of $\approx \SI{3}{\kilo\hertz}$ therefore the GBW needed in order to not interfere with pass band is $A_d \cdot f_{cuttoff}= \SI{15}{\kilo\hertz}$ hence $10k$ is not enough.
+
+Simulating two circuits of the first stage with $10k$ and $10M$, figure \ref{fig:P2Stg1GBW}, we are able to see that the filter loses gain in the pass band, figure \ref{fig:P2Stg1Bode}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.4]{Images/P2CircGBWStg1.png}
+    \caption{First Stage Circuit.}
+    \label{fig:P2Stg1GBW}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2BodeGBWStg1.png}
+    \caption{First Stage Bode.}
+    \label{fig:P2Stg1Bode}
+\end{figure}
+
+For the second stage, the gain is $1$, hence, GBW need is $\SI{3}{\kilo\hertz}$, therefore the Opamp with $10k$ GBW is enough for this stage.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.4]{Images/P2CircGBWStg2.png}
+    \caption{Second Stage Circuit.}
+    %\label{fig:P2Stg1GBW}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics*[scale = 0.25]{Images/P2BodeGBWStg2.png}
+    \caption{Second Stage Bode.}
+    %\label{fig:P2Stg1Bode}
+\end{figure}
+
