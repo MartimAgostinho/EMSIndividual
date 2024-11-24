@@ -259,6 +259,29 @@ A real Opamp will saturate when the output is near to the supply voltage, theref
 
 \subsection{OpAmp selection}
 
+In order to choose an Opamp that fits the filter specifications, the OpAmp needs to have a GBW $> \SI{15}{\kilo\hertz}$. Since the filter purpose is not specified this is the only parameter that can be decided. But for real world uses, other parameters are important.
+
+$\rightarrow$\textbf{Supply Voltage}
+
+This parameter is important because in some application, the supply voltage might be fixed.
+
+$\rightarrow$\textbf{Price}
+
+Although price is always relevant, in some cases it might be crucial to have the lowest price possible while in a circuit that will only be built once the price is not as important. 
+
+$\rightarrow$\textbf{Power Consumption}
+
+Power consumption of an operational amplifier is an important parameter to consider, especially in portable or battery-powered applications.
+
+$\rightarrow$\textbf{SlewRate}
+
+Slew rate specifies how quickly the opamp can respond to changes in input signals. It should be fast enough to handle the highest frequency components of the signal without introducing distortion
+Hence:
+\begin{equation}
+    \text{Slew Rate}\leq 2\pi f_{MAX} V_{MAX}
+\end{equation}
+
+Considering all these parameters, the MCP6001 was deemed a good option.
 \subsection{Single Supply Design}
 
 Since the input already decouples the DC signal, it is only needed to add a DC offset to the node after the first capacitor.
