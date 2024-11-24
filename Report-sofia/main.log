@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.14)  19 NOV 2024 15:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.10.14)  24 NOV 2024 17:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -736,7 +736,11 @@ Package: duckuments 2019-10-03 v0.5 minimal working duckuments
 Package: subfiles 2020/11/14 v2.2 Multi-file projects (package)
  (C:\Users\sofia\AppData\Local\Programs\MiKTeX\tex/latex/import\import.sty
 Package: import 2020/04/01  v 6.2
-)) (main.aux)
+)) (main.aux
+
+LaTeX Warning: Label `fig:step_vos' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 127.
@@ -791,7 +795,7 @@ File: translations-basic-dictionary-english.trsl (english translation file `tran
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 127.
 \c@lstlisting=\count369
-<NovaFct.png, id=40, 225.4824pt x 52.5162pt>
+<NovaFct.png, id=80, 225.4824pt x 52.5162pt>
 File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
 Package pdftex.def Info: NovaFct.png  used on input line 138.
@@ -831,8 +835,119 @@ File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
 Package pdftex.def Info: NovaFct.png  used on input line 188.
 (pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
-[2] (Sections/problem1.tex) (Sections/problem2.tex) (Sections/problem3.tex) (Sections/problem4.tex) (Sections/problem5.tex) (Sections/problem6.tex
-<images/wheatstone-bridge.png, id=81, 590.95781pt x 491.58656pt>
+[2] (Sections/problem1.tex) (Sections/problem2.tex
+<images/sch_ex2.png, id=151, 1188.69093pt x 440.39531pt>
+File: images/sch_ex2.png Graphic file (type png)
+<use images/sch_ex2.png>
+Package pdftex.def Info: images/sch_ex2.png  used on input line 9.
+(pdftex.def)             Requested size: 483.69687pt x 179.1991pt.
+ (C:\Users\sofia\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2024/05/25 1.10b listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 36.
+ (python/ex2.py
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 2.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[3 <./images/sch_ex2.png>]
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 47.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[4]
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 93.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[5]
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 136.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[6])
+<images/bode_ex2_python.png, id=309, 1110.0672pt x 579.6054pt>
+File: images/bode_ex2_python.png Graphic file (type png)
+<use images/bode_ex2_python.png>
+Package pdftex.def Info: images/bode_ex2_python.png  used on input line 59.
+(pdftex.def)             Requested size: 483.69687pt x 252.55083pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 63.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[7]
+<images/bode_ex2_ltspice.png, id=336, 1436.36626pt x 673.01437pt>
+File: images/bode_ex2_ltspice.png Graphic file (type png)
+<use images/bode_ex2_ltspice.png>
+Package pdftex.def Info: images/bode_ex2_ltspice.png  used on input line 86.
+(pdftex.def)             Requested size: 483.69687pt x 226.63448pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 90.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[8 <./images/bode_ex2_python.png>]
+<images/step_ex2_sim.png, id=344, 1442.38875pt x 683.55376pt>
+File: images/step_ex2_sim.png Graphic file (type png)
+<use images/step_ex2_sim.png>
+Package pdftex.def Info: images/step_ex2_sim.png  used on input line 99.
+(pdftex.def)             Requested size: 483.69687pt x 229.224pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 105.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[9 <./images/bode_ex2_ltspice.png> <./images/step_ex2_sim.png>]
+<images/sch_vos.png, id=354, 1671.24374pt x 573.14125pt>
+File: images/sch_vos.png Graphic file (type png)
+<use images/sch_vos.png>
+Package pdftex.def Info: images/sch_vos.png  used on input line 115.
+(pdftex.def)             Requested size: 483.69687pt x 165.87437pt.
+<images/step_vos.png, id=356, 1440.88312pt x 679.78969pt>
+File: images/step_vos.png Graphic file (type png)
+<use images/step_vos.png>
+Package pdftex.def Info: images/step_vos.png  used on input line 126.
+(pdftex.def)             Requested size: 483.69687pt x 228.20032pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 130.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[10 <./images/sch_vos.png>]
+<images/step_vos2.png, id=364, 1437.87187pt x 682.04813pt>
+File: images/step_vos2.png Graphic file (type png)
+<use images/step_vos2.png>
+Package pdftex.def Info: images/step_vos2.png  used on input line 135.
+(pdftex.def)             Requested size: 483.69687pt x 229.4372pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 146.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[11 <./images/step_vos.png> <./images/step_vos2.png>]
+<images/bode-stages.png, id=373, 1437.87187pt x 704.6325pt>
+File: images/bode-stages.png Graphic file (type png)
+<use images/bode-stages.png>
+Package pdftex.def Info: images/bode-stages.png  used on input line 150.
+(pdftex.def)             Requested size: 483.69687pt x 237.03445pt.
+
+
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 185.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[12 <./images/bode-stages.png>]) (Sections/problem3.tex) (Sections/problem4.tex) (Sections/problem5.tex) (Sections/problem6.tex
+<images/wheatstone-bridge.png, id=386, 590.95781pt x 491.58656pt>
 File: images/wheatstone-bridge.png Graphic file (type png)
 <use images/wheatstone-bridge.png>
 Package pdftex.def Info: images/wheatstone-bridge.png  used on input line 11.
@@ -841,25 +956,27 @@ Package pdftex.def Info: images/wheatstone-bridge.png  used on input line 11.
 
 File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
-Package pdftex.def Info: NovaFct.png  used on input line 36.
+Package pdftex.def Info: NovaFct.png  used on input line 26.
 (pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
-[3 <./images/wheatstone-bridge.png>]
-<images/block-diagram.png, id=101, 659.46375pt x 321.2pt>
+[13 <./images/wheatstone-bridge.png>]
+<images/block-diagram.png, id=400, 659.46375pt x 321.2pt>
 File: images/block-diagram.png Graphic file (type png)
 <use images/block-diagram.png>
 Package pdftex.def Info: images/block-diagram.png  used on input line 39.
 (pdftex.def)             Requested size: 329.73106pt x 160.59961pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
+File: NovaFct.png Graphic file (type png)
+<use NovaFct.png>
+Package pdftex.def Info: NovaFct.png  used on input line 53.
+(pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
+[14 <./images/block-diagram.png>]
 
 File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
 Package pdftex.def Info: NovaFct.png  used on input line 82.
 (pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
-[4 <./images/block-diagram.png>]
+[15]
 Underfull \hbox (badness 10000) in paragraph at lines 93--95
 
  []
@@ -870,8 +987,8 @@ File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
 Package pdftex.def Info: NovaFct.png  used on input line 199.
 (pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
-[5] (main.bbl
-Underfull \hbox (badness 2050) in paragraph at lines 47--50
+[16] (main.bbl
+Underfull \hbox (badness 2050) in paragraph at lines 51--54
 []\OT1/cmr/m/n/12 E. Sys-tems, ``Esp32 se-ries datasheet,'' [][]$https : / / www . espressif . com / sites / default / ^^Lles /
  []
 
@@ -881,26 +998,30 @@ File: NovaFct.png Graphic file (type png)
 <use NovaFct.png>
 Package pdftex.def Info: NovaFct.png  used on input line 202.
 (pdftex.def)             Requested size: 90.19136pt x 21.0061pt.
-[6] (main.aux)
+[17] (main.aux)
  ***********
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 0DB4A737565A56973923B41CF608CD0C;1538.
+(rerunfilecheck)             Checksum: 3F9196D9870F4C90B960E660F468E00D;3172.
  ) 
 Here is how much of TeX's memory you used:
- 34251 strings out of 473899
- 710433 string characters out of 5726499
- 1129672 words of memory out of 5000000
- 56524 multiletter control sequences out of 15000+600000
+ 35038 strings out of 473899
+ 719946 string characters out of 5726499
+ 1604370 words of memory out of 5000000
+ 57103 multiletter control sequences out of 15000+600000
  568250 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,16n,117p,725b,1063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,17n,117p,725b,2887s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\sofia\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/sofia/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (7 pages, 200380 bytes).
+Output written on main.pdf (18 pages, 693470 bytes).
 PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 32 named destinations out of 1000 (max. 500000)
- 114 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 550 PDF objects out of 1000 (max. 8388607)
+ 221 named destinations out of 1000 (max. 500000)
+ 234 words of extra memory for PDF output out of 10000 (max. 10000000)
 

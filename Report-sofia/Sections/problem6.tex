@@ -6,7 +6,7 @@ A common way of designing a pressure sensor is by using a Wheatstone bridge. The
 
 One implementation of this sensor is shown in Figure \ref{fig:wheatstone_bridge}. When pressure is applied each resistor either compress or stretch. These sensors are design in order to the opposite resistors in the bridge change their resistance accordingly, i.e., in the example of Figure \ref{fig:wheatstone_bridge}, $R - \triangle R$ decrease by compression, $R + \triangle R$ increase by stretching\textsuperscript{\cite{TI-Design-Resistive-Bridge-Pressure-Sensor}}. This change in resistance yields a change in the differential voltage, $V0$, which is proportional to the applied pressure.
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \includegraphics*[scale = 0.4]{images/wheatstone-bridge.png}
     \caption{Pressure sensor Wheatstone bridge implementation.} 

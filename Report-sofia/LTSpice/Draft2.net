@@ -1,0 +1,44 @@
+* C:\Users\sofia\EMSIndividual\Report-sofia\LTSpice\Draft2.asc
+C3 N002 vi 40.57n
+R3 N002 0 120.92k
+XU1 N002 N005 vdd vss N003 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R5 N005 0 18k
+R4 N003 N005 66.299k
+R1 N001 N003 3.33k
+R2 N004 N001 62.9k
+C2 N004 0 0.9n
+C1 vout N001 0.9n
+XU2 N004 vout vdd vss vout level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+V1 vss 0 -5
+V2 vdd 0 5
+V3 vi 0 1 AC 1
+V4 NC_01 0 PULSE(0 1 1 1u 1u 10)
+C4 N007 v2 40.57n
+R6 N007 0 120.92k
+XU3 N008 N012 vdd vss N009 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R7 N012 0 18k
+R8 N009 N012 66.299k
+R9 N006 N009 3.33k
+R10 N010 N006 62.9k
+C5 N010 0 0.9n
+C6 vout1 N006 0.9n
+XU4 N011 vout1 vdd vss vout1 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+V5 NC_02 0 0 AC 0
+V6 v2 0 PULSE(0 0 1 1u 1u 10)
+Vos2 N010 N011 1
+Vos1 N007 N008 1
+C7 N013 vi 40.57n
+R11 N013 0 120.92k
+XU5 N013 N014 vdd vss vout2 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+R12 N014 0 18k
+R13 vout2 N014 66.299k
+R19 N015 vi 3.33k
+R20 N016 N015 62.9k
+C11 N016 0 0.9n
+C12 vout3 N015 0.9n
+XU8 N016 vout3 vdd vss vout3 level2 Avol=1Meg GBW=10Meg Slew=10Meg Ilimit=25m Rail=0 Vos=0 En=0 Enk=0 In=0 Ink=0 Rin=500Meg
+.ac dec 1000 100m 10Meg
+;.tran 10
+.lib UniversalOpAmp2.lib
+.backanno
+.end
